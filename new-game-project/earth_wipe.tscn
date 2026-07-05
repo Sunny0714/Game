@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://c7cbh4mll5eb5"]
+
+[ext_resource type="Script" uid="uid://drf7mxpldyyxm" path="res://earth_wipe.gd" id="1_wgwug"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_5bqnq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wgwug"]
+radius = 57.0
+height = 240.0
+
+[sub_resource type="Animation" id="Animation_tlh0o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-42, -48)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.4153469]
+}
+
+[sub_resource type="Animation" id="Animation_krpo1"]
+resource_name = "wipe"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-60.999996, -29.999998), Vector2(0.99999994, -62.000004), Vector2(63.000008, -27.000008)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.9783036, 4.3268867]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j3lnn"]
+_data = {
+&"RESET": SubResource("Animation_tlh0o"),
+&"wipe": SubResource("Animation_krpo1")
+}
+
+[node name="EarthWipe" type="Area2D" unique_id=205009658]
+script = ExtResource("1_wgwug")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=38972583]
+position = Vector2(-2, -55)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_wgwug")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1519883333]
+position = Vector2(-42, -48)
+rotation = 2.4153469
+scale = Vector2(0.0859375, 1)
+texture = ExtResource("2_5bqnq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=338704968]
+libraries/ = SubResource("AnimationLibrary_j3lnn")

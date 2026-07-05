@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://ckudr8chj1kgo"]
+
+[ext_resource type="Script" uid="uid://80kl10p8d3vr" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_onrkg"]
+[ext_resource type="PackedScene" uid="uid://c7xi0rydnpfy2" path="res://icicle.tscn" id="2_sweqy"]
+[ext_resource type="PackedScene" uid="uid://c7cbh4mll5eb5" path="res://earth_wipe.tscn" id="3_2hs0m"]
+[ext_resource type="Script" uid="uid://cswng2foc2vbw" path="res://energy_bar.gd" id="3_i3pqv"]
+[ext_resource type="Script" uid="uid://efde8nor63fk" path="res://health_bar.gd" id="4_hqtel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3pqv"]
+bg_color = Color(0.8004903, 0.46884364, 0.09432835, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqtel"]
+bg_color = Color(0.3185797, 0.7021488, 0.22075936, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Player" type="CharacterBody2D" unique_id=2121266609 groups=["player"]]
+script = ExtResource("1_4flbx")
+icicle_scene = ExtResource("2_sweqy")
+earth_wipe_scene = ExtResource("3_2hs0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1737002363]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1641425508]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2055923717]
+texture = ExtResource("2_onrkg")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2121314241]
+zoom = Vector2(0.5, 0.5)
+
+[node name="EnergyBar" type="ProgressBar" parent="." unique_id=1151773862]
+offset_left = -505.0
+offset_top = 513.0
+offset_right = 519.0
+offset_bottom = 575.0
+theme_override_colors/font_color = Color(0.7176471, 0.37254903, 0.15294118, 0)
+theme_override_colors/font_outline_color = Color(0.5929381, 0.27965522, 0, 1)
+theme_override_styles/fill = SubResource("StyleBoxFlat_i3pqv")
+value = 50.0
+show_percentage = false
+script = ExtResource("3_i3pqv")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1579120706]
+offset_left = -509.0
+offset_top = 434.0
+offset_right = 513.0
+offset_bottom = 497.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hqtel")
+show_percentage = false
+script = ExtResource("4_hqtel")

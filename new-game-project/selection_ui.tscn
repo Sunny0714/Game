@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://fr6luwxffxk8"]
+
+[ext_resource type="Script" uid="uid://dwqwwpv5rhfcc" path="res://selection_ui.gd" id="1_n4ux0"]
+
+[node name="SelectionUi" type="CanvasLayer" unique_id=1831533118]
+script = ExtResource("1_n4ux0")
+
+[node name="Fire" type="Button" parent="." unique_id=2029232567]
+offset_left = 191.0
+offset_top = 317.0
+offset_right = 409.0
+offset_bottom = 465.0
+text = "Fire"
+
+[node name="Water" type="Button" parent="." unique_id=2026034091]
+offset_left = 723.0
+offset_top = 144.0
+offset_right = 956.0
+offset_bottom = 287.0
+text = "Water"
+
+[node name="Earth" type="Button" parent="." unique_id=1155443705]
+offset_left = 721.0
+offset_top = 306.0
+offset_right = 962.0
+offset_bottom = 460.0
+text = "Earth"
+
+[node name="Lightning" type="Button" parent="." unique_id=524206615]
+offset_left = 195.0
+offset_top = 159.0
+offset_right = 408.0
+offset_bottom = 302.0
+text = "Lightning"
+
+[node name="Start" type="Button" parent="." unique_id=450523084]
+offset_left = 475.0
+offset_top = 492.0
+offset_right = 634.0
+offset_bottom = 523.0
+text = "Start"
+
+[connection signal="pressed" from="Fire" to="." method="_on_fire_pressed"]
+[connection signal="pressed" from="Water" to="." method="_on_water_pressed"]
+[connection signal="pressed" from="Earth" to="." method="_on_earth_pressed"]
+[connection signal="pressed" from="Lightning" to="." method="_on_lightning_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
