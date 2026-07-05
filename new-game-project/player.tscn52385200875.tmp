@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://cswng2foc2vbw" path="res://energy_bar.gd" id="3_i3pqv"]
 [ext_resource type="PackedScene" uid="uid://djw88ctw1rxk7" path="res://WaterUlt.tscn" id="4_1jxqw"]
 [ext_resource type="Script" uid="uid://efde8nor63fk" path="res://health_bar.gd" id="4_hqtel"]
-[ext_resource type="PackedScene" uid="uid://5i4ed15e7m4c" path="res://fireball.tscn" id="5_dw050"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
 radius = 63.788715
@@ -34,9 +33,6 @@ script = ExtResource("1_4flbx")
 icicle_scene = ExtResource("2_sweqy")
 earth_wipe_scene = ExtResource("3_2hs0m")
 water_ult_scene = ExtResource("4_1jxqw")
-absolute_zero_radius = 400.0
-fireball_scene = ExtResource("5_dw050")
-fireball_cooldown = 1.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1737002363]
 shape = SubResource("CircleShape2D_2hs0m")
@@ -76,9 +72,3 @@ offset_bottom = 497.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_hqtel")
 show_percentage = false
 script = ExtResource("4_hqtel")
-
-[node name="FreezeCircle" type="Node2D" parent="." unique_id=998846394]
-z_index = 20
-
-[node name="Line2D" type="Line2D" parent="FreezeCircle" unique_id=261353261]
-z_index = 20

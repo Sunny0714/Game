@@ -1,8 +1,8 @@
 extends Area2D
 
-@export var speed: float = 2000.0
-@export var max_distance: float = 1500.0
-@export var damage: float = 10.0
+@export var speed: float = 1200.0
+@export var max_distance: float = 1000.0
+@export var damage: float = 8.0
 
 var direction: Vector2 = Vector2.RIGHT
 var traveled_distance: float = 0.0
@@ -21,7 +21,7 @@ func _process(delta):
 		queue_free()
 
 func _on_body_entered(body):
-	if body.is_in_group("player"):
+	if body.is_in_group("enemies"):
 		return
 	if body.has_method("take_damage"):
 		body.take_damage(damage)

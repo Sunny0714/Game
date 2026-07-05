@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://drf7mxpldyyxm" path="res://earth_wipe.gd" id="1_wgwug"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_5bqnq"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wgwug"]
-radius = 57.0
-height = 240.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wgwug"]
+size = Vector2(127.03995, 7.4216146)
 
 [sub_resource type="Animation" id="Animation_tlh0o"]
 length = 0.001
@@ -32,6 +31,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [2.4153469]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(63.856407, -28.059177)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.7100222]
 }
 
 [sub_resource type="Animation" id="Animation_krpo1"]
@@ -61,6 +84,30 @@ tracks/1/keys = {
 "update": 0,
 "values": [1.9783036, 4.3268867]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-62, -30), Vector2(2.0000038, -63.999996), Vector2(63.856407, -28.059177)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.41343978, 1.5707964, 2.7100222]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j3lnn"]
 _data = {
@@ -72,9 +119,10 @@ _data = {
 script = ExtResource("1_wgwug")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=38972583]
-position = Vector2(-2, -55)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_wgwug")
+position = Vector2(63.856407, -28.059177)
+rotation = 2.7100222
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_wgwug")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1519883333]
 position = Vector2(-42, -48)

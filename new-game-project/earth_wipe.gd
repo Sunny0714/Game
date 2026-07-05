@@ -5,6 +5,7 @@ extends Area2D
 
 @onready var anim = $AnimationPlayer
 
+var hit_bodies: Array = []
 
 func _ready():
 	body_entered.connect(_on_body_entered)
@@ -15,10 +16,14 @@ func _ready():
 	await get_tree().create_timer(lifetime).timeout
 	queue_free()
 
-
 func _on_body_entered(body):
 	if body.is_in_group("player"):
 		return
+
+	if body in hit_bodies:
+		return
+
+	hit_bodies.append(body)
 
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
