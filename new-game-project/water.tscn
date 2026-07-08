@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://btrytdgqsui5b"]
+[gd_scene format=3 uid="uid://d0d0ff4caub5x"]
 
-[ext_resource type="Script" uid="uid://ppajuroa7vp" path="res://enemy_1.gd" id="1_g51g3"]
-[ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_8d1r1"]
-[ext_resource type="PackedScene" uid="uid://dc1h72qy67w3g" path="res://projectile.tscn" id="3_8d1r1"]
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_jsi8p"]
+[ext_resource type="Script" uid="uid://bwbg66xygf7qv" path="res://water.gd" id="1_7wcun"]
+[ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_x4ob8"]
+[ext_resource type="PackedScene" uid="uid://c7xi0rydnpfy2" path="res://icicle.tscn" id="3_qmoj4"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_3g7ry"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1324b"]
 radius = 79.22752
@@ -11,13 +11,13 @@ radius = 79.22752
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stcs8"]
 bg_color = Color(0.18191057, 0.66177756, 0.21933779, 1)
 
-[node name="Enemy1" type="CharacterBody2D" unique_id=2070317418 groups=["enemies"]]
-script = ExtResource("1_g51g3")
-damage_number_scene = ExtResource("2_8d1r1")
-projectile_scene = ExtResource("3_8d1r1")
+[node name="Water" type="CharacterBody2D" unique_id=2070317418 groups=["player"]]
+script = ExtResource("1_7wcun")
+damage_number_scene = ExtResource("2_x4ob8")
+projectile_scene = ExtResource("3_qmoj4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1871019699]
-texture = ExtResource("3_jsi8p")
+texture = ExtResource("4_3g7ry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=625090933]
 shape = SubResource("CircleShape2D_1324b")

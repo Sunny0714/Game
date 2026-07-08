@@ -15,7 +15,7 @@ extends Area2D
 
 var direction: Vector2 = Vector2.ZERO
 var current_speed: float
-
+var shake_strength: float = 0.0
 var chain_count: int = 0
 
 var attached_to_enemy := false
@@ -31,10 +31,30 @@ func _ready():
 	await get_tree().create_timer(lifetime).timeout
 
 	if is_instance_valid(self):
+		screen_shake(8.0)
+		await get_tree().create_timer(0.05).timeout
 		queue_free()
 
 
-func _physics_process(delta):
+func _process(delta):
+	if shake_strength > 0:
+
+		var cam = get_viewport().get_camera_2d()
+
+		if cam:
+			cam.offset = Vector2(
+				randf_range(-shake_strength, shake_strength),
+				randf_range(-shake_strength, shake_strength)
+			)
+
+		shake_strength = lerp(shake_strength, 0.0, 0.35)
+
+	else:
+
+		var cam = get_viewport().get_camera_2d()
+
+		if cam:
+			cam.offset = Vector2.ZERO
 	if !attached_to_enemy:
 		global_position += direction * current_speed * delta
 
@@ -92,12 +112,16 @@ func chain_to_next(from_position: Vector2):
 	attached_to_enemy = false
 
 	if chain_count >= max_chains:
+		screen_shake(8.0)
+		await get_tree().create_timer(0.05).timeout
 		queue_free()
 		return
 
 	var next_enemy = find_closest_enemy(from_position)
 
 	if next_enemy == null:
+		screen_shake(8.0)
+		await get_tree().create_timer(0.05).timeout
 		queue_free()
 		return
 
@@ -150,3 +174,7 @@ func find_closest_enemy(from_position: Vector2):
 			closest_target = conductor
 
 	return closest_target
+
+func screen_shake(amount: float = 8.0):
+
+	shake_strength = amount

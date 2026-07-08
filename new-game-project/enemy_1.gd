@@ -10,9 +10,11 @@ extends CharacterBody2D
 @export var shoot_cooldown: float = 1.0
 @export var move_speed: float = 150.0
 @export var follow_distance: float = 300.0
-
+@export var knockback_decay: float = 1800.0
+var knockback_velocity: Vector2 = Vector2.ZERO
 @onready var sprite = $Sprite2D
 @onready var health_bar = $HealthBar
+@onready var vision_circle: Line2D = $VisionCircle
 
 var health: float
 var player: Node2D
@@ -36,9 +38,10 @@ func _ready():
 	health_bar.max_value = max_health
 	health_bar.value = health
 	health_bar.visible = false
-
+	_setup_vision_circle()
 
 func _physics_process(delta):
+
 	if frozen:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -49,24 +52,28 @@ func _physics_process(delta):
 
 	var dist = global_position.distance_to(player.global_position)
 
-	# vision (only if not aggroed)
-	if dist > vision_range and not aggroed:
-		velocity = Vector2.ZERO
-		move_and_slide()
-		return
+	# Start with knockback
+	velocity = knockback_velocity
 
-	# movement
-	if dist > follow_distance:
-		var dir = (player.global_position - global_position).normalized()
-		velocity = dir * move_speed
-	else:
-		velocity = Vector2.ZERO
+	# Vision (only if not aggroed)
+	if aggroed or dist <= vision_range:
+
+		# Movement
+		if dist > follow_distance:
+			var dir = (player.global_position - global_position).normalized()
+			velocity += dir * move_speed
+
+		# Shooting
+		if dist <= attack_range:
+			shoot()
+
+	# Decay knockback
+	knockback_velocity = knockback_velocity.move_toward(
+		Vector2.ZERO,
+		knockback_decay * delta
+	)
 
 	move_and_slide()
-
-	# shooting
-	if dist <= attack_range:
-		shoot()
 
 
 func shoot():
@@ -154,3 +161,26 @@ func show_damage_number(amount: float):
 		number.text = str(int(amount))
 
 	number.scale = Vector2(1.5, 1.5)
+func _setup_vision_circle():
+
+	vision_circle.clear_points()
+
+	var points := 64
+
+	for i in range(points + 1):
+		var angle = TAU * i / points
+
+		vision_circle.add_point(
+			Vector2(cos(angle), sin(angle)) * (vision_range - 100)
+		)
+
+	vision_circle.width = 3.0
+	vision_circle.default_color = Color(0.6, 0.6, 0.6, 0.35)
+	vision_circle.closed = true
+	vision_circle.z_index = 100
+
+func apply_knockback(direction: Vector2, force: float):
+
+	knockback_velocity = direction.normalized() * force
+
+	aggroed = true

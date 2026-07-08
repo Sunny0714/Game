@@ -11,7 +11,8 @@ extends CharacterBody2D
 @export var hit_cooldown: float = 0.4
 
 @export var damage_number_scene: PackedScene
-
+@export var knockback_decay: float = 1800.0
+var knockback_velocity: Vector2 = Vector2.ZERO
 @onready var sprite = $Sprite2D
 @onready var health_bar = $HealthBar
 
@@ -39,8 +40,8 @@ func _ready():
 	health_bar.value = health
 	health_bar.visible = false
 
-
 func _physics_process(delta):
+
 	if frozen:
 		velocity = Vector2.ZERO
 		move_and_slide()
@@ -51,15 +52,33 @@ func _physics_process(delta):
 
 	var dist := global_position.distance_to(player.global_position)
 
-	# vision (only blocks if not aggroed)
-	if not aggroed and dist > vision_range:
-		velocity = Vector2.ZERO
+	# Vision (only blocks if not aggroed)
+	if !aggroed and dist > vision_range:
+		velocity = knockback_velocity
 		move_and_slide()
+
+		knockback_velocity = knockback_velocity.move_toward(
+			Vector2.ZERO,
+			knockback_decay * delta
+		)
 		return
 
-	# chase player
-	var dir = (player.global_position - global_position).normalized()
-	velocity = dir * move_speed
+	# Base movement
+	if dist > 0:
+		var dir = (player.global_position - global_position).normalized()
+		velocity = dir * move_speed
+	else:
+		velocity = Vector2.ZERO
+
+	# Add knockback on top of movement
+	velocity += knockback_velocity
+
+	# Fade knockback over time
+	knockback_velocity = knockback_velocity.move_toward(
+		Vector2.ZERO,
+		knockback_decay * delta
+	)
+
 	move_and_slide()
 
 	# contact check
@@ -157,3 +176,9 @@ func show_damage_number(amount: float):
 		number.text = str(int(amount))
 
 	number.scale = Vector2(1.5, 1.5)
+
+func apply_knockback(direction: Vector2, force: float):
+
+	knockback_velocity = direction.normalized() * force
+
+	aggroed = true

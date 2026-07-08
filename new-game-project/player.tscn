@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://d1ilng25ikbf3" path="res://lightning_conductor.tscn" id="6_ivps1"]
 [ext_resource type="PackedScene" uid="uid://cy35hv0nqoe04" path="res://earth_ult.tscn" id="7_n7ghd"]
 [ext_resource type="PackedScene" uid="uid://g7nbtq7tun2o" path="res://lightning_spark.tscn" id="8_nvl01"]
+[ext_resource type="PackedScene" uid="uid://d0d0ff4caub5x" path="res://water.tscn" id="10_urp6f"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
 radius = 63.788715
@@ -27,7 +28,14 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqtel"]
-bg_color = Color(0.3185797, 0.7021488, 0.22075936, 1)
+bg_color = Color(0.3764706, 0.8235294, 0.03529412, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivps1"]
+bg_color = Color(0.6398571, 0.02948562, 0.10816646, 1)
 corner_radius_top_left = 20
 corner_radius_top_right = 20
 corner_radius_bottom_right = 20
@@ -40,11 +48,15 @@ earth_wipe_scene = ExtResource("3_2hs0m")
 water_ult_scene = ExtResource("4_1jxqw")
 inferno_scene = ExtResource("5_b26j0")
 lightning_conductor_scene = ExtResource("6_ivps1")
+fire_passive_radius = 550.0
+fire_circle_radius = 530.0
+fire_passive_cooldown = 5.0
 absolute_zero_radius = 400.0
 fireball_scene = ExtResource("5_dw050")
 fireball_cooldown = 1.5
 earth_ult_scene = ExtResource("7_n7ghd")
 lightning_scene = ExtResource("8_nvl01")
+water_scene = ExtResource("10_urp6f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1737002363]
 shape = SubResource("CircleShape2D_2hs0m")
@@ -84,6 +96,16 @@ offset_bottom = 497.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_hqtel")
 show_percentage = false
 script = ExtResource("4_hqtel")
+
+[node name="DamageBar" type="ProgressBar" parent="." unique_id=1337714914]
+top_level = true
+z_index = -10
+offset_left = -509.0
+offset_top = 434.0
+offset_right = 513.0
+offset_bottom = 497.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_ivps1")
+show_percentage = false
 
 [node name="FreezeCircle" type="Node2D" parent="." unique_id=998846394]
 z_index = 20

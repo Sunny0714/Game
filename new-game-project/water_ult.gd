@@ -68,5 +68,7 @@ func _on_body_entered(body):
 
 	if body.has_method("take_damage"):
 		body.take_damage(damage)
-
+	if body.has_method("apply_knockback"):
+		var dir = (body.global_position - global_position).normalized()
+		body.apply_knockback(dir, 500.0)
 	queue_free()

@@ -4,6 +4,7 @@
 
 [node name="EarthUlt" type="Node2D" unique_id=1533072059]
 script = ExtResource("1_qigyq")
+duration = 8.0
 
 [node name="Circle" type="Line2D" parent="." unique_id=246370893]
 z_index = 100
