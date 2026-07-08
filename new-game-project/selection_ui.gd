@@ -6,6 +6,9 @@ extends CanvasLayer
 @onready var water = $Water
 @onready var lightning = $Lightning
 @onready var earth = $Earth
+@onready var start = $Start
+
+var element_selected := false
 
 func _ready():
 	update_buttons()
@@ -19,29 +22,39 @@ func update_buttons():
 	lightning.modulate = selected if GameManager.selected_element == "lightning" else normal
 	earth.modulate = selected if GameManager.selected_element == "earth" else normal
 
+	start.disabled = !element_selected
+
+
 func _on_fire_pressed() -> void:
+	element_selected = true
 	GameManager.selected_element = "fire"
 	update_buttons()
 	print("Fire selected")
 
 
 func _on_water_pressed() -> void:
+	element_selected = true
 	GameManager.selected_element = "water"
 	update_buttons()
 	print("Water selected")
 
 
 func _on_lightning_pressed() -> void:
+	element_selected = true
 	GameManager.selected_element = "lightning"
 	update_buttons()
 	print("Lightning selected")
 
 
 func _on_earth_pressed() -> void:
+	element_selected = true
 	GameManager.selected_element = "earth"
 	update_buttons()
 	print("Earth selected")
 
 
 func _on_start_pressed() -> void:
+	if !element_selected:
+		return
+
 	get_tree().change_scene_to_file("res://map_1.tscn")

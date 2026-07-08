@@ -5,7 +5,14 @@ extends Area2D
 
 @onready var anim = $AnimationPlayer
 
+var follow_player: Node2D = null
+var offset: Vector2 = Vector2.ZERO
+
 var hit_bodies: Array = []
+
+func _process(delta):
+	if follow_player:
+		global_position = follow_player.global_position + offset
 
 func _ready():
 	body_entered.connect(_on_body_entered)

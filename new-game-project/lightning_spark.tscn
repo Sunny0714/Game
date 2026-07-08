@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://g7nbtq7tun2o"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_1l2dg"]
+[ext_resource type="Script" uid="uid://bacixq01uve22" path="res://lightning_spark.gd" id="1_2rsus"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2rsus"]
+radius = 27.018513
+
+[node name="LightningSpark" type="Area2D" unique_id=1101351635]
+script = ExtResource("1_2rsus")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1139936916]
+position = Vector2(0.5000005, -9.536743e-07)
+scale = Vector2(0.3515625, 0.34375003)
+texture = ExtResource("1_1l2dg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=241868922]
+shape = SubResource("CircleShape2D_2rsus")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -18,7 +18,19 @@ func _ready():
 
 func take_damage(amount: float):
 	print("Dummy took ", amount, " damage!")
+	if GameManager.player and GameManager.player.earth_buff:
+		var heal_amount: float = amount * GameManager.player.earth_lifesteal
 
+		GameManager.player.health += heal_amount
+		GameManager.player.health = clamp(
+			GameManager.player.health,
+			0,
+			GameManager.player.max_health
+		)
+
+		GameManager.player.health_bar.set_health(GameManager.player.health)
+
+		print("PLAYER LIFESTEAL HEALED:", heal_amount)
 	health -= amount
 	health = clamp(health, 0.0, max_health)
 

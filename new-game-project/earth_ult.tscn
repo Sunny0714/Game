@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cy35hv0nqoe04"]
+
+[ext_resource type="Script" uid="uid://chtu8ntpn3ffi" path="res://earth_ult.gd" id="1_qigyq"]
+
+[node name="EarthUlt" type="Node2D" unique_id=1533072059]
+script = ExtResource("1_qigyq")
+
+[node name="Circle" type="Line2D" parent="." unique_id=246370893]
+z_index = 100
+closed = true
+width = 4.0

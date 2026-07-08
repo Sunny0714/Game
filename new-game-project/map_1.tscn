@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemy1.tscn" id="4_n2bu5"]
 [ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="5_fpksy"]
 [ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemy3.tscn" id="6_bhpv2"]
+[ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="7_avvnj"]
 
 [node name="Map1" type="Node2D" unique_id=1414421208]
 
@@ -36,6 +37,9 @@ texture = ExtResource("2_lolil")
 [node name="Dummy" parent="." unique_id=2070317418 instance=ExtResource("3_1q0j8")]
 position = Vector2(431, -404)
 
+[node name="Dummy2" parent="." unique_id=444977445 instance=ExtResource("3_1q0j8")]
+position = Vector2(-462, 1177)
+
 [node name="Enemy1" parent="." unique_id=747708452 instance=ExtResource("4_n2bu5")]
 position = Vector2(-1083, -608)
 
@@ -47,3 +51,5 @@ position = Vector2(966, -221)
 
 [node name="Enemy4" parent="." unique_id=724990817 instance=ExtResource("6_bhpv2")]
 position = Vector2(745, 398)
+
+[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("7_avvnj")]

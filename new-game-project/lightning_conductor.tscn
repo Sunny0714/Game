@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d1ilng25ikbf3"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_8r6d1"]
+[ext_resource type="Script" uid="uid://bgo4gcm3ncqj0" path="res://lightning_conductor.gd" id="1_ky5og"]
+[ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_tfgh1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ky5og"]
+size = Vector2(121, 125)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ky5og"]
+bg_color = Color(0.8763375, 0.48659134, 0.025601901, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tfgh1"]
+radius = 75.10659
+
+[node name="LightningConductor" type="StaticBody2D" unique_id=1134158360]
+script = ExtResource("1_ky5og")
+damage_number_scene = ExtResource("2_tfgh1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=715938508]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_ky5og")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=532046972]
+texture = ExtResource("1_8r6d1")
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1205358040 groups=["player"]]
+offset_left = -76.0
+offset_top = -104.0
+offset_right = 76.0
+offset_bottom = -77.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_ky5og")
+max_value = 500.0
+show_percentage = false
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1767204590]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1472557238]
+shape = SubResource("CircleShape2D_tfgh1")
+
+[node name="ExplosionCircle" type="Line2D" parent="." unique_id=1041413147]

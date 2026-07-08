@@ -6,31 +6,31 @@
 script = ExtResource("1_n4ux0")
 
 [node name="Fire" type="Button" parent="." unique_id=2029232567]
-offset_left = 191.0
-offset_top = 317.0
-offset_right = 409.0
-offset_bottom = 465.0
+offset_left = 186.0
+offset_top = 171.0
+offset_right = 449.0
+offset_bottom = 266.0
 text = "Fire"
 
 [node name="Water" type="Button" parent="." unique_id=2026034091]
-offset_left = 723.0
-offset_top = 144.0
-offset_right = 956.0
-offset_bottom = 287.0
+offset_left = 707.0
+offset_top = 315.0
+offset_right = 967.0
+offset_bottom = 405.0
 text = "Water"
 
 [node name="Earth" type="Button" parent="." unique_id=1155443705]
-offset_left = 721.0
-offset_top = 306.0
-offset_right = 962.0
-offset_bottom = 460.0
+offset_left = 706.0
+offset_top = 168.0
+offset_right = 968.0
+offset_bottom = 264.0
 text = "Earth"
 
 [node name="Lightning" type="Button" parent="." unique_id=524206615]
-offset_left = 195.0
-offset_top = 159.0
-offset_right = 408.0
-offset_bottom = 302.0
+offset_left = 187.0
+offset_top = 310.0
+offset_right = 451.0
+offset_bottom = 408.0
 text = "Lightning"
 
 [node name="Start" type="Button" parent="." unique_id=450523084]

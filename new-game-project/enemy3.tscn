@@ -12,7 +12,6 @@ bg_color = Color(0.18191057, 0.66177756, 0.21933779, 1)
 
 [node name="Enemy3" type="CharacterBody2D" unique_id=2070317418 groups=["enemies"]]
 script = ExtResource("1_h8mf2")
-knockback_force = 1000.0
 damage_number_scene = ExtResource("2_yag85")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1871019699]

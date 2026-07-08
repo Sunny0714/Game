@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var max_health: float = 250.0
 
 @export var vision_range: float = 650.0
-@export var move_speed: float = 220.0
+@export var move_speed: float = 150
 @export var contact_damage: float = 12.0
 
 @export var knockback_force: float = 400.0
@@ -46,7 +46,7 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
-	if player == null or dead:
+	if player == null or !is_instance_valid(player) or dead:
 		return
 
 	var dist := global_position.distance_to(player.global_position)
@@ -100,7 +100,19 @@ func _do_hit(body):
 func take_damage(amount: float):
 	if dead:
 		return
+	if GameManager.player and GameManager.player.earth_buff:
+		var heal_amount: float = amount * GameManager.player.earth_lifesteal
 
+		GameManager.player.health += heal_amount
+		GameManager.player.health = clamp(
+			GameManager.player.health,
+			0,
+			GameManager.player.max_health
+		)
+
+		GameManager.player.health_bar.set_health(GameManager.player.health)
+
+		print("PLAYER LIFESTEAL HEALED:", heal_amount)
 	health -= amount
 	health = clamp(health, 0.0, max_health)
 

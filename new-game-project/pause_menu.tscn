@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://c201kqm66rjry"]
+
+[ext_resource type="Script" uid="uid://c67dmus8fc8bq" path="res://pause_menu.gd" id="1_hdmo1"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=585320210]
+process_mode = 3
+script = ExtResource("1_hdmo1")
+
+[node name="Control" type="Control" parent="." unique_id=615359222]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1958603789]
+layout_mode = 0
+offset_left = -139.0
+offset_top = -104.0
+offset_right = 1335.0
+offset_bottom = 741.0
+color = Color(0, 0, 0, 0.6)
+
+[node name="Panel" type="Panel" parent="Control" unique_id=677947542]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -273.0
+offset_right = 304.0
+offset_bottom = -225.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="Control/Panel" unique_id=427942590]
+layout_mode = 0
+offset_left = -81.0
+offset_top = 129.0
+offset_right = 93.0
+offset_bottom = 214.0
+text = "Resume"
+
+[node name="ElementSelection" type="Button" parent="Control/Panel" unique_id=650243363]
+layout_mode = 0
+offset_left = -79.0
+offset_top = 235.0
+offset_right = 98.0
+offset_bottom = 322.0
+text = "Element Selection"
+
+[node name="Quit" type="Button" parent="Control/Panel" unique_id=536228076]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.406
+offset_left = -75.0
+offset_top = 337.0
+offset_right = -63.0
+offset_bottom = 350.512
+text = "Quit"
+
+[connection signal="pressed" from="Control/Panel/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Control/Panel/ElementSelection" to="." method="_on_element_selection_pressed"]
+[connection signal="pressed" from="Control/Panel/Quit" to="." method="_on_quit_pressed"]

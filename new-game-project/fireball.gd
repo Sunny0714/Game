@@ -1,8 +1,8 @@
 extends Area2D
 
 @export var damage: float = 20.0
-@export var burn_damage: float = 1.0
-@export var burn_duration: float = 4.0
+@export var burn_damage: float = 2.0
+@export var burn_duration: float = 2.0
 
 @export var min_time: float = 0.5
 @export var max_time: float = 1.0
@@ -63,9 +63,18 @@ func _explode():
 		if body == null:
 			continue
 
-		if body.has_method("take_damage"):
-			body.take_damage(damage)
+		# 🔥 SAFETY: ignore self-type or invalid objects
+		if not body.has_method("take_damage"):
+			continue
 
+		# 🔥 ONLY BLOCK PLAYER IF GROUP EXISTS
+		if body.is_in_group("player"):
+			continue
+
+		# 🔥 DAMAGE ALWAYS APPLIES FIRST
+		body.take_damage(damage)
+
+		# 🔥 BURN ALWAYS APPLIES IF POSSIBLE
 		if body.has_method("apply_burn"):
 			body.apply_burn(burn_damage, burn_duration)
 

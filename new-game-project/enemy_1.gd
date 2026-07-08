@@ -131,6 +131,20 @@ func show_damage_number(amount: float):
 	if damage_number_scene == null:
 		return
 
+	if GameManager.player and GameManager.player.earth_buff:
+		var heal_amount: float = amount * GameManager.player.earth_lifesteal
+
+		GameManager.player.health += heal_amount
+		GameManager.player.health = clamp(
+			GameManager.player.health,
+			0,
+			GameManager.player.max_health
+		)
+
+		GameManager.player.health_bar.set_health(GameManager.player.health)
+
+		print("PLAYER LIFESTEAL HEALED:", heal_amount)
+
 	var number = damage_number_scene.instantiate()
 	get_tree().current_scene.add_child(number)
 

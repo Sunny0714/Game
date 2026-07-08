@@ -9,9 +9,6 @@
 [ext_resource type="Script" uid="uid://efde8nor63fk" path="res://health_bar.gd" id="4_hqtel"]
 [ext_resource type="PackedScene" uid="uid://btnosb33ek3ae" path="res://inferno.tscn" id="5_b26j0"]
 [ext_resource type="PackedScene" uid="uid://5i4ed15e7m4c" path="res://fireball.tscn" id="5_dw050"]
-[ext_resource type="PackedScene" uid="uid://d1ilng25ikbf3" path="res://lightning_conductor.tscn" id="6_ivps1"]
-[ext_resource type="PackedScene" uid="uid://cy35hv0nqoe04" path="res://earth_ult.tscn" id="7_n7ghd"]
-[ext_resource type="PackedScene" uid="uid://g7nbtq7tun2o" path="res://lightning_spark.tscn" id="8_nvl01"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
 radius = 63.788715
@@ -35,16 +32,24 @@ corner_radius_bottom_left = 20
 
 [node name="Player" type="CharacterBody2D" unique_id=2121266609 groups=["player"]]
 script = ExtResource("1_4flbx")
+base_speed = null
+max_energy = null
+max_health = null
 icicle_scene = ExtResource("2_sweqy")
 earth_wipe_scene = ExtResource("3_2hs0m")
 water_ult_scene = ExtResource("4_1jxqw")
 inferno_scene = ExtResource("5_b26j0")
-lightning_conductor_scene = ExtResource("6_ivps1")
 absolute_zero_radius = 400.0
+absolute_zero_duration = null
+absolute_zero_dps = null
 fireball_scene = ExtResource("5_dw050")
+fireball_damage = null
 fireball_cooldown = 1.5
-earth_ult_scene = ExtResource("7_n7ghd")
-lightning_scene = ExtResource("8_nvl01")
+burn_damage = null
+burn_duration = null
+earth_buff_duration = null
+earth_damage_reduction = null
+earth_lifesteal = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1737002363]
 shape = SubResource("CircleShape2D_2hs0m")
@@ -54,7 +59,7 @@ shape = SubResource("CircleShape2D_2hs0m")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2055923717]
 texture = ExtResource("2_onrkg")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=863942068]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2121314241]
 zoom = Vector2(0.5, 0.5)
 
 [node name="LightningHitbox" type="Area2D" parent="." unique_id=1764415148]
@@ -65,7 +70,7 @@ shape = SubResource("CircleShape2D_1jxqw")
 [node name="EnergyBar" type="ProgressBar" parent="." unique_id=1151773862]
 top_level = true
 offset_left = -302.0
-offset_top = 538.0
+offset_top = 513.0
 offset_right = 519.0
 offset_bottom = 575.0
 theme_override_colors/font_color = Color(0.7176471, 0.37254903, 0.15294118, 0)
