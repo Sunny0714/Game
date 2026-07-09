@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://csoo5hdxrfp0b"]
 
 [ext_resource type="Script" uid="uid://ds7wapcgw62mu" path="res://enemy_3.gd" id="1_h8mf2"]
+[ext_resource type="PackedScene" uid="uid://dajof5ahujt1q" path="res://health_pack.tscn" id="2_baq7o"]
 [ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_yag85"]
+[ext_resource type="PackedScene" uid="uid://dqux1ghw082bx" path="res://energy_pack.tscn" id="3_yag85"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="4_vpkv7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1324b"]
@@ -12,6 +14,8 @@ bg_color = Color(0.18191057, 0.66177756, 0.21933779, 1)
 
 [node name="Enemy3" type="CharacterBody2D" unique_id=2070317418 groups=["enemies"]]
 script = ExtResource("1_h8mf2")
+health_pack_scene = ExtResource("2_baq7o")
+energy_pack_scene = ExtResource("3_yag85")
 damage_number_scene = ExtResource("2_yag85")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1871019699]

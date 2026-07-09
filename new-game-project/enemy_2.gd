@@ -5,15 +5,17 @@ extends CharacterBody2D
 @export var explosion_damage_radius: float = 190.0
 @export var explosion_damage: float = 25.0
 @export var damage_number_scene: PackedScene
+@export var energy_pack_scene: PackedScene
 @export var vision_range: float = 400.0
 @export var move_speed: float = 300.0
 @export var knockback_decay: float = 1800.0
-
+@export var health_pack_scene: PackedScene
 var knockback_velocity: Vector2 = Vector2.ZERO
 
 @onready var sprite = $Sprite2D
 @onready var health_bar = $HealthBar
-
+var slow_multiplier: float = 1.0
+var is_slowed: bool = false
 var health: float
 var player: Node2D
 var aggroed := false
@@ -53,7 +55,7 @@ func _physics_process(delta):
 
 	if dist <= vision_range or aggroed:
 		var follow_dir = (player.global_position - global_position).normalized()
-		velocity += follow_dir * move_speed
+		velocity += follow_dir * move_speed * slow_multiplier
 
 	knockback_velocity = knockback_velocity.move_toward(
 		Vector2.ZERO,
@@ -143,7 +145,7 @@ func explode():
 			body.take_damage(explosion_damage)
 
 	await _flash_explosion_circle()
-
+	drop_pack()
 	queue_free()
 
 func _setup_explosion_circle():
@@ -199,3 +201,32 @@ func _flash_red():
 func apply_knockback(direction: Vector2, force: float):
 	knockback_velocity = direction.normalized() * force
 	aggroed = true
+
+func drop_pack():
+	var chance = randf()
+
+	if chance <= 0.05: # 5% chance
+		var health_pack = health_pack_scene.instantiate()
+		get_tree().current_scene.add_child(health_pack)
+		health_pack.global_position = global_position
+	elif randf() <= 0.09:
+		var pack = energy_pack_scene.instantiate()
+		get_tree().current_scene.add_child(pack)
+		pack.global_position = global_position
+
+func apply_slow(amount: float, element: String = "water"):
+	slow_multiplier = amount
+	is_slowed = true
+
+	if has_node("Sprite2D"):
+		if element == "earth":
+			$Sprite2D.modulate = Color(0.7, 1.0, 0.7) # green
+		elif element == "water":
+			$Sprite2D.modulate = Color(0.75, 0.9, 1.0) # ice blue
+
+func remove_slow():
+	slow_multiplier = 1.0
+	is_slowed = false
+
+	if has_node("Sprite2D"):
+		$Sprite2D.modulate = Color.WHITE

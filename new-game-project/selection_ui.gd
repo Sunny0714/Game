@@ -57,4 +57,15 @@ func _on_start_pressed() -> void:
 	if !element_selected:
 		return
 
-	get_tree().change_scene_to_file("res://map_1.tscn")
+	match GameManager.selected_element:
+		"fire":
+			get_tree().change_scene_to_file("res://map_1fire.tscn")
+
+		"water":
+			get_tree().change_scene_to_file("res://map_1water.tscn")
+
+		"lightning":
+			get_tree().change_scene_to_file("res://map_1.tscn")
+
+		"earth":
+			get_tree().change_scene_to_file("res://map_1earth.tscn")

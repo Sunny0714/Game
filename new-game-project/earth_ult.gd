@@ -5,6 +5,7 @@ extends Node2D
 @export var damage: float = 3.0
 @export var damage_interval: float = 0.1
 @export var duration: float = 7.0
+@export var slow_amount: float = 0.3 # 70% slow
 
 @onready var circle: Line2D = $Circle
 
@@ -15,6 +16,12 @@ func _ready():
 	_setup_circle()
 
 	await get_tree().create_timer(duration).timeout
+
+	# Reset enemies when ult ends
+	for enemy in get_tree().get_nodes_in_group("enemies"):
+		if enemy.has_method("remove_slow"):
+			enemy.remove_slow()
+
 	queue_free()
 
 
@@ -22,7 +29,6 @@ func _process(delta):
 	# Follow mouse
 	global_position = get_global_mouse_position()
 
-	# Damage timer
 	damage_timer -= delta
 
 	if damage_timer <= 0:
@@ -49,7 +55,20 @@ func _setup_circle():
 
 func deal_damage():
 	for enemy in get_tree().get_nodes_in_group("enemies"):
+
+		if !is_instance_valid(enemy):
+			continue
+
 		var distance = global_position.distance_to(enemy.global_position)
 
 		if distance <= damage_radius:
-			enemy.take_damage(damage)
+
+			if enemy.has_method("take_damage"):
+				enemy.take_damage(damage)
+
+			if enemy.has_method("apply_slow"):
+				enemy.apply_slow(slow_amount)
+
+		else:
+			if enemy.has_method("remove_slow"):
+				enemy.remove_slow()

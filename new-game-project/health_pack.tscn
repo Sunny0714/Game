@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dajof5ahujt1q"]
+
+[ext_resource type="Script" uid="uid://ctyi86gthkngg" path="res://health_pack.gd" id="1_bboee"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_xab54"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bboee"]
+radius = 70.256676
+
+[sub_resource type="Animation" id="Animation_bboee"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_v2cuk"]
+resource_name = "drop"
+length = 0.43333334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.4, 0.4), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(120, -35), Vector2(50, -114), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_irjl4"]
+_data = {
+&"RESET": SubResource("Animation_bboee"),
+&"drop": SubResource("Animation_v2cuk")
+}
+
+[node name="HealthPack" type="Area2D" unique_id=1094859471]
+script = ExtResource("1_bboee")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1250374520]
+texture = ExtResource("1_xab54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945209995]
+shape = SubResource("CircleShape2D_bboee")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=768428015]
+z_index = 5
+offset_left = -100.0
+offset_top = 60.0
+offset_right = 100.0
+offset_bottom = 140.0
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+scroll_active = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1298324215]
+libraries/ = SubResource("AnimationLibrary_irjl4")

@@ -1,50 +1,5 @@
 extends CharacterBody2D
 
-@export var base_speed: float = 400.0
-@export var max_energy: float = 100.0
-@export var max_health: float = 100.0
-
-@export var icicle_scene: PackedScene
-@export var earth_wipe_scene: PackedScene
-@export var water_ult_scene: PackedScene
-@export var inferno_scene: PackedScene
-@export var lightning_conductor_scene: PackedScene
-@export var fire_passive_radius: float = 350.0
-@export var fire_circle_radius: float = 300.0
-@export var fire_knockback_force: float = 600.0
-
-var fire_passive_circle: Line2D
-var can_use_fire_passive := true
-@export var fire_passive_cooldown: float = 3.0
-var current_conductor: Node = null
-
-@export var absolute_zero_radius: float = 300.0
-@export var absolute_zero_duration: float = 5.0
-@export var absolute_zero_dps: float = 1.0
-
-@export var fireball_scene: PackedScene
-@export var fireball_damage: float = 20.0
-@export var fireball_cooldown: float = 1.0
-@export var burn_damage: float = 1.0
-@export var burn_duration: float = 4.0
-@export var energy_cooldown: float = 10.0
-@export var earth_ult_scene: PackedScene
-@export var lightning_scene: PackedScene
-@export var lightning_cooldown: float = 0.8
-var dash_ready: bool = true
-var dash_velocity: Vector2 = Vector2.ZERO
-@export var water_scene: PackedScene
-var water_passive_cooldown: float = 10
-var can_use_water_passive: bool = true
-@export var dash_speed: float = 4000.0
-@export var dash_duration: float = 0.15
-@export var dash_cooldown: float = 3.0
-
-var is_dashing := false
-var can_use_lightning: bool = true
-var lightning_slashing := false
-@export var lightning_slash_speed: float = 2500.0
-@export var lightning_slash_distance: float = 300.0
 @onready var sprite = $Sprite2D
 @onready var energy_bar = $EnergyBar
 @onready var health_bar = $HealthBar
@@ -52,39 +7,72 @@ var lightning_slashing := false
 @onready var camera: Camera2D = $Camera2D
 @onready var damage_bar = $DamageBar
 
+@export var lightning_slash_speed: float = 2500.0
+@export var lightning_slash_distance: float = 300.0
+@export var dash_speed: float = 4000.0
+@export var dash_duration: float = 0.15
+@export var dash_cooldown: float = 3.0
+@export var base_speed: float = 400.0
+@export var max_energy: float = 100.0
+@export var max_health: float = 100.0
+@export var lightning_cooldown: float = 0.8
+@export var fire_passive_radius: float = 350.0
+@export var fire_circle_radius: float = 300.0
+@export var fire_knockback_force: float = 600.0
+@export var fire_passive_cooldown: float = 3.0
+@export var absolute_zero_radius: float = 300.0
+@export var absolute_zero_duration: float = 5.0
+@export var absolute_zero_dps: float = 1.0
+@export var fireball_damage: float = 20.0
+@export var fireball_cooldown: float = 1.0
+@export var burn_damage: float = 1.0
+@export var burn_duration: float = 4.0
+@export var energy_cooldown: float = 10.0
+@export var earth_buff_duration := 5.0
+@export var damage_reduction : float = 100
+@export var earth_lifesteal := 1
+@export var earth_ult_scene: PackedScene
+@export var lightning_scene: PackedScene
+@export var water_scene: PackedScene
+@export var icicle_scene: PackedScene
+@export var earth_wipe_scene: PackedScene
+@export var water_ult_scene: PackedScene
+@export var inferno_scene: PackedScene
+@export var lightning_conductor_scene: PackedScene
+@export var fireball_scene: PackedScene
+
+var energy_cd: bool = true
+var can_use_lightning: bool = true
+var dash_ready: bool = true
+var can_use_water_passive: bool = true
+var can_use_fire_passive := true
+var current_conductor: Node = null
+var can_fire := true
+var lightning_ult_active := false
+var inferno_locked := false
+var earth_buff := false
+var is_dashing := false
+var lightning_slashing := false
+var can_shoot := true
+var can_earth := true
+var dash_velocity: Vector2 = Vector2.ZERO
+var water_passive_cooldown: float = 10
 var energy: float
 var health: float
 var speed: float
 var knockback_velocity: Vector2 = Vector2.ZERO
 var knockback_timer: float = 0.0
-var can_shoot := true
 var shoot_cooldown := 0.5
 var pending_heal := 0.0
-
-
-var can_earth := true
 var earth_cooldown := 0.3
-var energy_cd: bool = true
-var can_fire := true
-
-var lightning_ult_active := false
-
+var fire_passive_circle: Line2D
 var freeze_circle: Line2D
-
 var fire_target_circle: Line2D
-
-var inferno_locked := false
-
-var earth_buff := false
-
-@export var earth_buff_duration := 5.0
-@export var damage_reduction : float = 100
-@export var earth_lifesteal := 1
-
 var earth_circle: Line2D
+var fire_wave_circle: Line2D
 
 func _ready():
-	energy = 100
+	energy = 50
 	health = max_health
 	speed = base_speed
 	_setup_freeze_circle()
@@ -110,7 +98,6 @@ func _ready():
 	if hitbox and not hitbox.body_entered.is_connected(_on_lightning_hit):
 		hitbox.body_entered.connect(_on_lightning_hit)
 	_setup_earth_circle()
-
 
 func _physics_process(delta):
 	if lightning_slashing:
@@ -153,7 +140,6 @@ func _process(delta):
 	else:
 		fire_passive_circle.visible = false
 
-
 	if Input.is_action_just_pressed("passive"):
 		if GameManager.selected_element == "fire" and can_use_fire_passive:
 			fire_passive()
@@ -179,12 +165,11 @@ func _process(delta):
 	health = clamp(health, 0, max_health)
 
 	damage_bar.global_position = global_position + Vector2(-40, 500)
-	energy_bar.global_position = global_position + Vector2(160, 560)
+	energy_bar.global_position = global_position + Vector2(160, 565)
 	health_bar.global_position = global_position + Vector2(-40, 500)
 
 	energy_bar.value = energy
 	health_bar.set_health(health)
-
 
 func _input(event):
 	if event.is_action_pressed("attack"):
@@ -234,110 +219,6 @@ func energy_ability():
 	await get_tree().create_timer(energy_cooldown).timeout
 	energy_cd = true
 
-		
-
-func _setup_freeze_circle():
-	freeze_circle = Line2D.new()
-	add_child(freeze_circle)
-
-	freeze_circle.width = 3.0
-	freeze_circle.default_color = Color(0.4, 0.7, 1.0, 0.6)
-	freeze_circle.visible = false
-
-
-func _update_freeze_circle():
-	if GameManager.selected_element != "water":
-		freeze_circle.visible = false
-		return
-
-	freeze_circle.visible = true
-	freeze_circle.global_position = global_position
-
-	var points = []
-	var segments = 32
-
-	for i in range(segments + 1):
-		var angle = (TAU / segments) * i
-		points.append(Vector2(cos(angle), sin(angle)) * absolute_zero_radius)
-
-	freeze_circle.clear_points()
-	for p in points:
-		freeze_circle.add_point(p)
-
-
-func _setup_fire_circle():
-	fire_target_circle = Line2D.new()
-	add_child(fire_target_circle)
-
-	fire_target_circle.width = 2.5
-	fire_target_circle.default_color = Color(1.0, 0.4, 0.1, 0.7)
-	fire_target_circle.visible = false
-
-	fire_target_circle.z_index = 100
-
-
-func _update_fire_circle():
-	if GameManager.selected_element != "fire":
-		fire_target_circle.visible = false
-		return
-
-	fire_target_circle.visible = true
-	fire_target_circle.global_position = get_global_mouse_position()
-
-	var points = []
-	var segments = 32
-
-	for i in range(segments + 1):
-		var angle = (TAU / segments) * i
-		points.append(Vector2(cos(angle), sin(angle)) * 80)
-
-	fire_target_circle.clear_points()
-	for p in points:
-		fire_target_circle.add_point(p)
-
-
-
-func absolute_zero():
-	var space = get_world_2d().direct_space_state
-
-	var shape = CircleShape2D.new()
-	shape.radius = absolute_zero_radius
-
-	var query = PhysicsShapeQueryParameters2D.new()
-	query.shape = shape
-	query.transform = Transform2D(0, global_position)
-	query.collide_with_bodies = true
-
-	var results = space.intersect_shape(query)
-
-	var targets = []
-
-	for hit in results:
-		var body = hit.collider
-
-		if body and body.is_in_group("enemies"):
-			if body.has_method("set_frozen"):
-				body.set_frozen(true)
-
-			body.modulate = Color(0.4, 0.7, 1.0)
-			targets.append(body)
-
-	for sec in range(int(absolute_zero_duration)):
-		await get_tree().create_timer(1.0).timeout
-
-		for e in targets:
-			if is_instance_valid(e):
-				if e.has_method("take_damage"):
-					e.take_damage(absolute_zero_dps)
-
-	for e in targets:
-		if is_instance_valid(e):
-			if e.has_method("set_frozen"):
-				e.set_frozen(false)
-
-			e.modulate = Color.WHITE
-
-
 func ultimate():
 	if energy < max_energy:
 		return
@@ -380,6 +261,102 @@ func ultimate():
 		await get_tree().create_timer(10).timeout
 		speed = base_speed
 
+func _setup_freeze_circle():
+	freeze_circle = Line2D.new()
+	add_child(freeze_circle)
+
+	freeze_circle.width = 3.0
+	freeze_circle.default_color = Color(0.4, 0.7, 1.0, 0.6)
+	freeze_circle.visible = false
+
+func _update_freeze_circle():
+	if GameManager.selected_element != "water":
+		freeze_circle.visible = false
+		return
+
+	freeze_circle.visible = true
+	freeze_circle.global_position = global_position
+
+	var points = []
+	var segments = 32
+
+	for i in range(segments + 1):
+		var angle = (TAU / segments) * i
+		points.append(Vector2(cos(angle), sin(angle)) * absolute_zero_radius)
+
+	freeze_circle.clear_points()
+	for p in points:
+		freeze_circle.add_point(p)
+
+
+func _setup_fire_circle():
+	fire_target_circle = Line2D.new()
+	add_child(fire_target_circle)
+
+	fire_target_circle.width = 2.5
+	fire_target_circle.default_color = Color(1.0, 0.4, 0.1, 0.7)
+	fire_target_circle.visible = false
+
+	fire_target_circle.z_index = 100
+
+func _update_fire_circle():
+	if GameManager.selected_element != "fire":
+		fire_target_circle.visible = false
+		return
+
+	fire_target_circle.visible = true
+	fire_target_circle.global_position = get_global_mouse_position()
+
+	var points = []
+	var segments = 32
+
+	for i in range(segments + 1):
+		var angle = (TAU / segments) * i
+		points.append(Vector2(cos(angle), sin(angle)) * 80)
+
+	fire_target_circle.clear_points()
+	for p in points:
+		fire_target_circle.add_point(p)
+
+func absolute_zero():
+	var space = get_world_2d().direct_space_state
+
+	var shape = CircleShape2D.new()
+	shape.radius = absolute_zero_radius
+
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.shape = shape
+	query.transform = Transform2D(0, global_position)
+	query.collide_with_bodies = true
+
+	var results = space.intersect_shape(query)
+
+	var targets = []
+
+	for hit in results:
+		var body = hit.collider
+
+		if body and body.is_in_group("enemies"):
+			if body.has_method("set_frozen"):
+				body.set_frozen(true)
+
+			body.modulate = Color(0.4, 0.7, 1.0)
+			targets.append(body)
+
+	for sec in range(int(absolute_zero_duration)):
+		await get_tree().create_timer(1.0).timeout
+
+		for e in targets:
+			if is_instance_valid(e):
+				if e.has_method("take_damage"):
+					e.take_damage(absolute_zero_dps)
+
+	for e in targets:
+		if is_instance_valid(e):
+			if e.has_method("set_frozen"):
+				e.set_frozen(false)
+
+			e.modulate = Color.WHITE
 
 func fireball_attack():
 	if fireball_scene == null or !can_fire:
@@ -431,7 +408,18 @@ func _start_fire_burn(pos: Vector2):
 		if body.has_method("take_damage"):
 			targets.append(body)
 
+			if body.has_node("Sprite2D"):
+				body.get_node("Sprite2D").modulate = Color(1.0, 0.5, 0.1)
+
+
 	_run_fire_burn(targets)
+
+	await get_tree().create_timer(5.0).timeout
+
+	for enemy in targets:
+		if is_instance_valid(enemy):
+			if enemy.has_node("Sprite2D"):
+				enemy.get_node("Sprite2D").modulate = Color.WHITE
 
 func _run_fire_burn(targets: Array):
 	var elapsed := 0.0
@@ -687,42 +675,29 @@ func spawn_lightning_conductor():
 
 	if is_instance_valid(current_conductor):
 
-		print("OLD CONDUCTOR DESTROYED")
-
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 
 			if !is_instance_valid(enemy):
 				continue
 
-
 			var distance = current_conductor.global_position.distance_to(
 				enemy.global_position
 			)
-
-
 			var damage_radius = 290.0
 
 			if distance > damage_radius:
 				continue
 
-
-			print("CONDUCTOR EXPLOSION HIT:", enemy.name)
-
-
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(10)
-
 
 		current_conductor.queue_free()
 
 	current_conductor = lightning_conductor_scene.instantiate()
-
 	get_tree().current_scene.add_child(current_conductor)
-
 	current_conductor.global_position = global_position
 
 func apply_knockback(direction: Vector2, force: float, duration: float = 0.25):
-
 	knockback_velocity = direction * force
 	knockback_timer = duration
 
@@ -743,10 +718,8 @@ func update_damage_bar():
 	)
 
 func dash():
-
 	dash_ready = false
 	is_dashing = true
-
 	var dash_dir = Vector2.ZERO
 
 	if Input.is_action_pressed("move_right"):
@@ -758,29 +731,20 @@ func dash():
 	if Input.is_action_pressed("move_up"):
 		dash_dir.y -= 1
 
-
 	if dash_dir == Vector2.ZERO:
 		dash_dir = (
 			get_global_mouse_position() - global_position
 		).normalized()
 
-
 	dash_velocity = dash_dir.normalized() * dash_speed
 
-
 	await get_tree().create_timer(dash_duration).timeout
-
-
 	is_dashing = false
 	dash_velocity = Vector2.ZERO
-
-
 	await get_tree().create_timer(dash_cooldown).timeout
-
 	dash_ready = true
 
 func lightning_slash(target_position: Vector2):
-
 	lightning_slashing = true
 	velocity = Vector2.ZERO
 
@@ -799,20 +763,15 @@ func lightning_slash(target_position: Vector2):
 
 	slash_directions.shuffle()
 
-
 	for i in range(2):
 
 		var dir = slash_directions[i].normalized()
-
 		var start_position = target_position + dir * lightning_slash_distance
 		var end_position = target_position - dir * lightning_slash_distance
 
-
 		global_position = start_position
 
-
 		var tween = create_tween()
-
 		tween.tween_property(
 			self,
 			"global_position",
@@ -820,53 +779,33 @@ func lightning_slash(target_position: Vector2):
 			0.1
 		)
 
-
 		while global_position.distance_to(end_position) > 5:
-
 			await get_tree().process_frame
-
-
 			var space = get_world_2d().direct_space_state
-
 			var shape = CircleShape2D.new()
 			shape.radius = 80
-
-
 			var query = PhysicsShapeQueryParameters2D.new()
 			query.shape = shape
 			query.transform = Transform2D(0, global_position)
 			query.collide_with_bodies = true
-
-
 			var hits = space.intersect_shape(query)
 
-
 			for hit in hits:
-
 				var enemy = hit.collider
-
 
 				if enemy == self:
 					continue
 
-
 				if enemy.is_in_group("enemies") and !hit_enemy.has(enemy):
-
 					hit_enemy.append(enemy)
 
 					if enemy.has_method("take_damage"):
 						enemy.take_damage(35)
 
-
-		# make sure tween ends exactly
 		global_position = end_position
 
-
 		await get_tree().create_timer(0.05).timeout
-
-
 	await get_tree().create_timer(0.1).timeout
-
 
 	lightning_slashing = false
 	velocity = Vector2.ZERO
@@ -895,13 +834,10 @@ func spawn_water_passive():
 
 	water.global_position = global_position + spawn_offset
 
-
 	await get_tree().create_timer(water_passive_cooldown).timeout
-
 	can_use_water_passive = true
 
 func _setup_fire_passive_circle():
-
 	fire_passive_circle = Line2D.new()
 	add_child(fire_passive_circle)
 
@@ -917,9 +853,18 @@ func _setup_fire_passive_circle():
 			Vector2(cos(angle), sin(angle)) * fire_circle_radius
 		)
 
-func fire_passive():
+	# Animated shockwave
+	fire_wave_circle = Line2D.new()
+	add_child(fire_wave_circle)
 
+	fire_wave_circle.width = 5.0
+	fire_wave_circle.default_color = Color(1.0, 0.8, 0.2)
+	fire_wave_circle.z_index = 101
+	fire_wave_circle.visible = false
+
+func fire_passive():
 	can_use_fire_passive = false
+	play_fire_wave()
 
 	var space = get_world_2d().direct_space_state
 
@@ -934,14 +879,12 @@ func fire_passive():
 	var results = space.intersect_shape(query)
 
 	for hit in results:
-
 		var enemy = hit.collider
 
 		if enemy == self:
 			continue
 
 		if enemy.is_in_group("enemies"):
-
 			var direction = (
 				enemy.global_position - global_position
 			).normalized()
@@ -951,12 +894,30 @@ func fire_passive():
 					direction,
 					fire_knockback_force
 				)
-
 			_start_fire_burn(enemy.global_position)
-
 
 	await get_tree().create_timer(
 		fire_passive_cooldown
 	).timeout
 
 	can_use_fire_passive = true
+
+func play_fire_wave():
+	fire_wave_circle.visible = true
+
+	var points := 64
+	var radius := 0.0
+
+	while radius < fire_circle_radius:
+		fire_wave_circle.clear_points()
+
+		for i in range(points + 1):
+			var angle = TAU * i / points
+			fire_wave_circle.add_point(
+				Vector2(cos(angle), sin(angle)) * radius
+			)
+
+		radius += 20
+		await get_tree().process_frame
+
+	fire_wave_circle.visible = false

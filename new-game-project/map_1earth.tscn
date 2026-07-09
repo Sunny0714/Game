@@ -1,23 +1,24 @@
-[gd_scene format=3 uid="uid://dvm600yohx2b0"]
+[gd_scene format=3 uid="uid://gu2m0dk7tyok"]
 
-[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_thia8"]
-[ext_resource type="PackedScene" uid="uid://bosc1km7wv8v" path="res://dummy.tscn" id="3_1q0j8"]
-[ext_resource type="Script" uid="uid://bkjbwlpenm05g" path="res://tutorial_text.gd" id="4_n2bu5"]
-[ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="7_avvnj"]
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_vej7u"]
+[ext_resource type="PackedScene" uid="uid://bosc1km7wv8v" path="res://dummy.tscn" id="2_qa6mr"]
+[ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="3_3h1u4"]
+[ext_resource type="Script" uid="uid://bkjbwlpenm05g" path="res://tutorial_text.gd" id="4_q23m6"]
 
 [node name="Map1" type="Node2D" unique_id=1414421208]
 
-[node name="Player" parent="." unique_id=2121266609 instance=ExtResource("1_thia8")]
+[node name="Player" parent="." unique_id=2121266609 instance=ExtResource("1_vej7u")]
 
 [node name="Background" type="Node" parent="." unique_id=1973444737]
 
-[node name="Dummy" parent="." unique_id=2070317418 instance=ExtResource("3_1q0j8")]
-position = Vector2(9138, -137)
+[node name="Dummy" parent="." unique_id=2070317418 instance=ExtResource("2_qa6mr")]
+position = Vector2(8858, -159)
 
-[node name="Dummy2" parent="." unique_id=444977445 instance=ExtResource("3_1q0j8")]
-position = Vector2(5931, -88)
+[node name="Dummy2" parent="." unique_id=444977445 instance=ExtResource("2_qa6mr")]
+position = Vector2(5620, -97)
+max_health = 150.0
 
-[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("7_avvnj")]
+[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("3_3h1u4")]
 
 [node name="TutorialText" type="Label" parent="." unique_id=216900555]
 offset_left = 646.0
@@ -27,8 +28,8 @@ offset_bottom = -208.0
 theme_override_font_sizes/font_size = 55
 text = "Welcome to the tutorial!
 
-You've chosen the Lightning element."
-script = ExtResource("4_n2bu5")
+You've chosen the Earth element."
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText15" type="Label" parent="." unique_id=517965912]
 offset_left = -199.0
@@ -37,7 +38,7 @@ offset_right = 203.0
 offset_bottom = -392.0
 theme_override_font_sizes/font_size = 55
 text = "WASD to MOVE"
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText16" type="Label" parent="." unique_id=2035729663]
 offset_left = -412.0
@@ -47,7 +48,7 @@ offset_bottom = -191.0
 theme_override_font_sizes/font_size = 55
 text = "Press 'esc' and then \"Skip\"
 to skip the tutorial"
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText18" type="Label" parent="." unique_id=1377764857]
 offset_left = 18501.0
@@ -57,7 +58,7 @@ offset_bottom = -294.0
 theme_override_font_sizes/font_size = 55
 text = "Press 'esc' and then \"Skip\"
 to finish the tutorial"
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText2" type="Label" parent="." unique_id=1302372736]
 offset_left = 1892.0
@@ -68,7 +69,7 @@ theme_override_font_sizes/font_size = 55
 text = "I'll guide you through your
 four abilities and show you 
 how to interact with items."
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText3" type="Label" parent="." unique_id=1439592324]
 offset_left = 2907.0
@@ -84,85 +85,72 @@ you gain Energy. When your
 your Energy Bar will begin to glow,
 letting you know your Ultimate is ready.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText5" type="Label" parent="." unique_id=552816935]
-offset_left = 4075.0
-offset_top = -445.0
-offset_right = 5291.0
-offset_bottom = -21.0
+offset_left = 4042.0
+offset_top = -581.0
+offset_right = 5377.0
+offset_bottom = -157.0
 theme_override_font_sizes/font_size = 55
 text = "Now it's time to learn your *Basic Attack*.
 
-Your Basic Attack, Spark, chains
-between nearby enemies. 'Left Click' to use it.
+Your Basic Attack, Wipe, slashes in the
+direction of your mouse. Press 'Left Click' to use it.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText6" type="Label" parent="." unique_id=781156123]
-offset_left = 6277.0
-offset_top = -611.0
-offset_right = 7660.0
-offset_bottom = -61.0
+offset_left = 5944.0
+offset_top = -607.0
+offset_right = 7154.0
+offset_bottom = -57.0
 theme_override_font_sizes/font_size = 55
 text = "Your second ability is your *Energy Ability*.
 
 Using it costs *25 Energy*. 
-Your Lightning Energy 
-Ability is called Conductor. 
+Your Water Energy 
+Ability is called Seismic Resonance. 
 Press 'Shift' to activate it.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText7" type="Label" parent="." unique_id=1860761641]
-offset_left = 7675.0
-offset_top = -633.0
-offset_right = 8537.0
-offset_bottom = -162.0
+offset_left = 7161.0
+offset_top = -488.0
+offset_right = 8511.0
+offset_bottom = -17.0
 theme_override_font_sizes/font_size = 55
-text = "Conductor creates a wall 
-with *500 HP* that deals 
-damage to enemies upon 
-death. It also lets your 
-attacks chain even when 
-only one enemy is nearby."
-script = ExtResource("4_n2bu5")
-
-[node name="TutorialText17" type="Label" parent="." unique_id=1810324557]
-offset_left = 8657.0
-offset_top = -258.0
-offset_right = 8953.0
-offset_bottom = -173.0
-theme_override_font_sizes/font_size = 55
-text = "Place here"
-script = ExtResource("4_n2bu5")
+text = "*Seismic Resonance* reduces incoming damage by
+*20%* while converting 
+*80% of your damage dealt into lifesteal*,
+allowing you to recover health with every attack.
+"
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText4" type="Label" parent="." unique_id=258368434]
-offset_left = 8902.0
-offset_top = -432.0
-offset_right = 9020.0
-offset_bottom = -311.0
+offset_left = 8827.0
+offset_top = -414.0
+offset_right = 8945.0
+offset_bottom = -293.0
 theme_override_font_sizes/font_size = 55
 text = "Try"
-script = ExtResource("4_n2bu5")
-
-[node name="Dummy3" parent="." unique_id=541256055 instance=ExtResource("3_1q0j8")]
-position = Vector2(5676, -88)
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText8" type="Label" parent="." unique_id=762645291]
-offset_left = 5744.0
+offset_left = 5575.0
 offset_top = -348.0
-offset_right = 5862.0
+offset_right = 5693.0
 offset_bottom = -227.0
 theme_override_font_sizes/font_size = 55
 text = "Try"
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText9" type="Label" parent="." unique_id=1784610475]
-offset_left = 9515.0
-offset_top = -673.0
-offset_right = 10819.0
-offset_bottom = -123.0
+offset_left = 9464.0
+offset_top = -680.0
+offset_right = 10768.0
+offset_bottom = -130.0
 theme_override_font_sizes/font_size = 55
 text = "Great job! Now it's time to learn your *Ultimate*.
 
@@ -171,20 +159,20 @@ your entire Energy Bar, but
 it's your most powerful ability. 
 Use it wisely!
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText10" type="Label" parent="." unique_id=640090236]
-offset_left = 10954.0
-offset_top = -586.0
-offset_right = 12387.0
-offset_bottom = -162.0
+offset_left = 10961.0
+offset_top = -648.0
+offset_right = 12409.0
+offset_bottom = -177.0
 theme_override_font_sizes/font_size = 55
-text = "Press 'E' to unleash your Ultimate, *God Speed*.
-
-You'll move at incredible speed,
-damaging every enemy you pass through.
+text = "Press 'E' to unleash your Ultimate, *Devouring Grasp*.
+You'll summons a deadly vine that follows your cursor,
+wrapping around enemies and dealing *3 damage* 
+every *0.1 seconds* while slowing them down.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText12" type="Label" parent="." unique_id=1940024828]
 offset_left = 13948.0
@@ -199,21 +187,21 @@ Every element has a *Passive Ability*.
 Some passives must be activated manually,
 while others work automatically.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText13" type="Label" parent="." unique_id=1619414734]
-offset_left = 15342.0
+offset_left = 15401.0
 offset_top = -573.0
-offset_right = 16401.0
-offset_bottom = -102.0
+offset_right = 16269.0
+offset_bottom = -23.0
 theme_override_font_sizes/font_size = 55
-text = "Since you chose Lightning, 
-you have two Passives.
+text = "Since you chose Earth, 
+you have one Passives.
 
-You move faster than other elements 
-and can *Dash* by pressing 'Space'.
+You generate *5 health* every
+*10 seconds*.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
 [node name="TutorialText14" type="Label" parent="." unique_id=921092044]
 offset_left = 16625.0
@@ -226,16 +214,16 @@ Defeated enemies have a chance to drop useful items.
 
 To pick one up, simply 'Right Click' on it.
 "
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")
 
-[node name="Dummy4" parent="." unique_id=944103175 instance=ExtResource("3_1q0j8")]
-position = Vector2(12693, -226)
+[node name="Dummy4" parent="." unique_id=944103175 instance=ExtResource("2_qa6mr")]
+position = Vector2(12936, -98)
 
-[node name="Dummy5" parent="." unique_id=928647782 instance=ExtResource("3_1q0j8")]
-position = Vector2(13068, 322)
+[node name="Dummy5" parent="." unique_id=928647782 instance=ExtResource("2_qa6mr")]
+position = Vector2(13273, -183)
 
-[node name="Dummy6" parent="." unique_id=911877673 instance=ExtResource("3_1q0j8")]
-position = Vector2(13494, -1)
+[node name="Dummy6" parent="." unique_id=911877673 instance=ExtResource("2_qa6mr")]
+position = Vector2(12966, -332)
 
 [node name="TutorialText11" type="Label" parent="." unique_id=1580000861]
 offset_left = 13070.0
@@ -244,4 +232,4 @@ offset_right = 13188.0
 offset_bottom = -433.0
 theme_override_font_sizes/font_size = 55
 text = "Try"
-script = ExtResource("4_n2bu5")
+script = ExtResource("4_q23m6")

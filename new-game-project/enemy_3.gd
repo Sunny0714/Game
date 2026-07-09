@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 @export var min_health: float = 200.0
 @export var max_health: float = 250.0
-
+@export var health_pack_scene: PackedScene
+@export var energy_pack_scene: PackedScene
 @export var vision_range: float = 650.0
 @export var move_speed: float = 150
 @export var contact_damage: float = 12.0
@@ -18,7 +19,8 @@ var knockback_velocity: Vector2 = Vector2.ZERO
 
 var health: float
 var player: Node2D
-
+var slow_multiplier: float = 1.0
+var is_slowed: bool = false
 var aggroed := false
 var dead := false
 var can_hit := true
@@ -66,7 +68,7 @@ func _physics_process(delta):
 	# Base movement
 	if dist > 0:
 		var dir = (player.global_position - global_position).normalized()
-		velocity = dir * move_speed
+		velocity = dir * move_speed * slow_multiplier
 	else:
 		velocity = Vector2.ZERO
 
@@ -154,6 +156,7 @@ func die():
 	if dead:
 		return
 	dead = true
+	drop_pack()
 	queue_free()
 
 
@@ -182,3 +185,32 @@ func apply_knockback(direction: Vector2, force: float):
 	knockback_velocity = direction.normalized() * force
 
 	aggroed = true
+
+func drop_pack():
+	var chance = randf()
+
+	if chance <= 0.05:
+		var health_pack = health_pack_scene.instantiate()
+		get_tree().current_scene.add_child(health_pack)
+		health_pack.global_position = global_position
+	elif randf() <= 0.09:
+		var pack = energy_pack_scene.instantiate()
+		get_tree().current_scene.add_child(pack)
+		pack.global_position = global_position
+
+func apply_slow(amount: float, element: String = "water"):
+	slow_multiplier = amount
+	is_slowed = true
+
+	if has_node("Sprite2D"):
+		if element == "earth":
+			$Sprite2D.modulate = Color(0.7, 1.0, 0.7) # green
+		elif element == "water":
+			$Sprite2D.modulate = Color(0.75, 0.9, 1.0) # ice blue
+
+func remove_slow():
+	slow_multiplier = 1.0
+	is_slowed = false
+
+	if has_node("Sprite2D"):
+		$Sprite2D.modulate = Color.WHITE
