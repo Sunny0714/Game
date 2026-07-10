@@ -40,6 +40,7 @@ extends CharacterBody2D
 @export var inferno_scene: PackedScene
 @export var lightning_conductor_scene: PackedScene
 @export var fireball_scene: PackedScene
+@export var fire_tornado_scene: PackedScene
 
 var energy_cd: bool = true
 var can_use_lightning: bool = true
@@ -216,6 +217,8 @@ func energy_ability():
 		damage_reduction = 100
 	if GameManager.selected_element == "lightning":
 		spawn_lightning_conductor()
+	if GameManager.selected_element == "fire":
+		spawn_fire_tornado()
 	await get_tree().create_timer(energy_cooldown).timeout
 	energy_cd = true
 
@@ -921,3 +924,18 @@ func play_fire_wave():
 		await get_tree().process_frame
 
 	fire_wave_circle.visible = false
+
+func spawn_fire_tornado():
+	if fire_tornado_scene == null:
+		return
+
+	var dir = (get_global_mouse_position() - global_position).normalized()
+
+	var tornado = fire_tornado_scene.instantiate()
+	get_tree().current_scene.add_child(tornado)
+
+	var spawn_distance := 200
+	tornado.global_position = global_position + dir * spawn_distance
+
+	tornado.direction = dir
+	tornado.rotation = dir.angle()

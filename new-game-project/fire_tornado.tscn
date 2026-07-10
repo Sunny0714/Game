@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://ckhulc3iq3eem"]
+
+[ext_resource type="Script" uid="uid://cdxpn1ftsr2u1" path="res://fire_tornado.gd" id="1_qivna"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ac6y"]
+radius = 349.63123
+
+[node name="FireTornado" type="Area2D" unique_id=1794690565]
+script = ExtResource("1_qivna")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=188350606]
+shape = SubResource("CircleShape2D_0ac6y")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1771503757]
+
+[node name="Timer" type="Timer" parent="." unique_id=1076420014]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=520809479]
+
+[node name="Circle" type="Line2D" parent="." unique_id=701448339]

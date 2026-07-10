@@ -12,7 +12,7 @@
 [node name="Background" type="Node" parent="." unique_id=1973444737]
 
 [node name="Dummy" parent="." unique_id=2070317418 instance=ExtResource("2_mj1ll")]
-position = Vector2(8880, -235)
+position = Vector2(9045, -306)
 
 [node name="Dummy2" parent="." unique_id=444977445 instance=ExtResource("2_mj1ll")]
 position = Vector2(5784, -124)
@@ -48,6 +48,15 @@ offset_bottom = -191.0
 theme_override_font_sizes/font_size = 55
 text = "Press 'esc' and then \"Skip\"
 to skip the tutorial"
+script = ExtResource("4_3otti")
+
+[node name="TutorialText17" type="Label" parent="." unique_id=784901540]
+offset_left = 1434.0
+offset_top = 379.0
+offset_right = 2598.0
+offset_bottom = 534.0
+theme_override_font_sizes/font_size = 55
+text = "NOTE: DUMMIES DO NOT TAKE KNOCKBACK"
 script = ExtResource("4_3otti")
 
 [node name="TutorialText18" type="Label" parent="." unique_id=1377764857]
@@ -110,25 +119,28 @@ text = "Your second ability is your *Energy Ability*.
 
 Using it costs *25 Energy*. 
 Your Fire Energy 
-Ability is called _____. 
+Ability is called Solor Flare. 
 Press 'Shift' to activate it.
 "
 script = ExtResource("4_3otti")
 
 [node name="TutorialText7" type="Label" parent="." unique_id=1860761641]
-offset_left = 7675.0
-offset_top = -633.0
-offset_right = 8537.0
-offset_bottom = -162.0
+offset_left = 7626.0
+offset_top = -517.0
+offset_right = 8693.0
+offset_bottom = -46.0
 theme_override_font_sizes/font_size = 55
-text = "____________________________"
+text = "Solar Flare summons a blazing
+tornado that pulls enemies to its center,
+grouping them together while dealing
+constant damage."
 script = ExtResource("4_3otti")
 
 [node name="TutorialText4" type="Label" parent="." unique_id=258368434]
-offset_left = 8844.0
-offset_top = -485.0
-offset_right = 8940.0
-offset_bottom = -364.0
+offset_left = 9009.0
+offset_top = -521.0
+offset_right = 9105.0
+offset_bottom = -400.0
 theme_override_font_sizes/font_size = 55
 text = "Try"
 script = ExtResource("4_3otti")

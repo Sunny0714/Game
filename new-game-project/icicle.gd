@@ -41,6 +41,10 @@ func _on_body_entered(body):
 
 	if hit_enemies.has(body):
 		return
+	
+	if body.is_in_group("projectile_blocker"):
+		queue_free()
+		return
 
 	if body.has_method("take_damage"):
 		body.take_damage(damage)

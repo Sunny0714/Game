@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cy35hv0nqoe04" path="res://earth_ult.tscn" id="7_n7ghd"]
 [ext_resource type="PackedScene" uid="uid://g7nbtq7tun2o" path="res://lightning_spark.tscn" id="8_nvl01"]
 [ext_resource type="PackedScene" uid="uid://d0d0ff4caub5x" path="res://water.tscn" id="10_urp6f"]
+[ext_resource type="PackedScene" uid="uid://ckhulc3iq3eem" path="res://fire_tornado.tscn" id="11_bwjto"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
 radius = 63.788715
@@ -57,6 +58,7 @@ water_ult_scene = ExtResource("4_1jxqw")
 inferno_scene = ExtResource("5_b26j0")
 lightning_conductor_scene = ExtResource("6_ivps1")
 fireball_scene = ExtResource("5_dw050")
+fire_tornado_scene = ExtResource("11_bwjto")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1737002363]
 shape = SubResource("CircleShape2D_2hs0m")

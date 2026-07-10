@@ -63,6 +63,10 @@ func _on_body_entered(body):
 
 	if !is_instance_valid(body):
 		return
+	
+	if body.is_in_group("projectile_blocker"):
+		queue_free()
+		return
 
 	if !body.is_in_group("enemies") and !body.is_in_group("lightning_conductor"):
 		return
