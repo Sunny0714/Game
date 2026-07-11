@@ -2,13 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_s123t"]
 [ext_resource type="Texture2D" uid="uid://blpset20ifre1" path="res://floor.jpg" id="2_luiv8"]
-[ext_resource type="PackedScene" uid="uid://bosc1km7wv8v" path="res://dummy.tscn" id="3_8hrur"]
 [ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemy1.tscn" id="4_bik57"]
 [ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="5_6wyyh"]
 [ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemy3.tscn" id="6_ab82m"]
 [ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="7_fioup"]
+[ext_resource type="PackedScene" uid="uid://dof5o4jaeea7i" path="res://portal.tscn" id="8_8hrur"]
+[ext_resource type="PackedScene" uid="uid://c1t72k6odd4xv" path="res://wall.tscn" id="8_luiv8"]
 
 [node name="Map1" type="Node2D" unique_id=1414421208]
+
+[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("7_fioup")]
 
 [node name="Player" parent="." unique_id=2121266609 instance=ExtResource("1_s123t")]
 
@@ -34,12 +37,6 @@ z_index = -11
 position = Vector2(-817, -663)
 texture = ExtResource("2_luiv8")
 
-[node name="Dummy" parent="." unique_id=2070317418 instance=ExtResource("3_8hrur")]
-position = Vector2(431, -404)
-
-[node name="Dummy2" parent="." unique_id=444977445 instance=ExtResource("3_8hrur")]
-position = Vector2(-462, 1177)
-
 [node name="Enemy1" parent="." unique_id=747708452 instance=ExtResource("4_bik57")]
 position = Vector2(-1083, -608)
 
@@ -49,7 +46,18 @@ position = Vector2(-1257, 471)
 [node name="Enemy3" parent="." unique_id=186734388 instance=ExtResource("5_6wyyh")]
 position = Vector2(966, -221)
 
+[node name="Enemy5" parent="." unique_id=2070317418 instance=ExtResource("5_6wyyh")]
+position = Vector2(726, -612)
+
 [node name="Enemy4" parent="." unique_id=724990817 instance=ExtResource("6_ab82m")]
 position = Vector2(745, 398)
 
-[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("7_fioup")]
+[node name="Enemy6" parent="." unique_id=3148737 instance=ExtResource("6_ab82m")]
+position = Vector2(300, 834)
+
+[node name="Wall" parent="." unique_id=1719780109 instance=ExtResource("8_luiv8")]
+position = Vector2(-9, -193)
+
+[node name="Portal" parent="." unique_id=306924495 instance=ExtResource("8_8hrur")]
+position = Vector2(-202, -757)
+next_level = "res://map_3.tscn"

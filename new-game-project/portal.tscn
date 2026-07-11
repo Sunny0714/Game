@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dof5o4jaeea7i"]
+
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_0r486"]
+[ext_resource type="Script" uid="uid://el65pd1mu2cq" path="res://portal.gd" id="1_ef3v5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ef3v5"]
+radius = 63.0
+height = 256.0
+
+[node name="Portal" type="Area2D" unique_id=306924495]
+script = ExtResource("1_ef3v5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1074038047]
+shape = SubResource("CapsuleShape2D_ef3v5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1825503479]
+scale = Vector2(1, 2.015625)
+texture = ExtResource("1_0r486")

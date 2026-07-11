@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://q8pfboy8jj45"]
+
+[ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="1_3lf7l"]
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="2_aca6x"]
+[ext_resource type="Texture2D" uid="uid://blpset20ifre1" path="res://floor.jpg" id="3_c74ph"]
+[ext_resource type="PackedScene" uid="uid://cook0xmwlp8st" path="res://enemy4.tscn" id="5_i54f7"]
+[ext_resource type="PackedScene" uid="uid://36fjebjt5hu2" path="res://enemy5.tscn" id="6_hkwdu"]
+[ext_resource type="PackedScene" uid="uid://c1t72k6odd4xv" path="res://wall.tscn" id="7_k37h5"]
+[ext_resource type="PackedScene" uid="uid://py31rkcgasrd" path="res://enemy6.tscn" id="7_qfu4t"]
+[ext_resource type="PackedScene" uid="uid://c3mruc03ym2gu" path="res://enemy7.tscn" id="8_k37h5"]
+[ext_resource type="PackedScene" uid="uid://64nm2frkw88u" path="res://enemy8.tscn" id="9_jutoy"]
+[ext_resource type="PackedScene" uid="uid://d10fymu1d45ni" path="res://dummyfake.tscn" id="10_yqoln"]
+[ext_resource type="PackedScene" uid="uid://dof5o4jaeea7i" path="res://portal.tscn" id="11_hkwdu"]
+
+[node name="Map1" type="Node2D" unique_id=1414421208]
+
+[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("1_3lf7l")]
+
+[node name="Player" parent="." unique_id=2121266609 instance=ExtResource("2_aca6x")]
+
+[node name="Background" type="Node" parent="." unique_id=1973444737]
+
+[node name="Background" type="Sprite2D" parent="Background" unique_id=1388031366]
+z_index = -10
+position = Vector2(80, 258)
+texture = ExtResource("3_c74ph")
+
+[node name="Background2" type="Sprite2D" parent="Background" unique_id=543078397]
+z_index = -10
+position = Vector2(-817, 253)
+texture = ExtResource("3_c74ph")
+
+[node name="Background3" type="Sprite2D" parent="Background" unique_id=62919896]
+z_index = -11
+position = Vector2(80, -658)
+texture = ExtResource("3_c74ph")
+
+[node name="Background4" type="Sprite2D" parent="Background" unique_id=308012178]
+z_index = -11
+position = Vector2(-817, -663)
+texture = ExtResource("3_c74ph")
+
+[node name="Wall" parent="." unique_id=1719780109 instance=ExtResource("7_k37h5")]
+position = Vector2(-9, -193)
+
+[node name="Enemy4" parent="." unique_id=2070317418 instance=ExtResource("5_i54f7")]
+position = Vector2(539, 639)
+
+[node name="Enemy17" parent="." unique_id=1872139 instance=ExtResource("5_i54f7")]
+position = Vector2(-851, 138)
+
+[node name="Enemy15" parent="." unique_id=1138789116 instance=ExtResource("5_i54f7")]
+position = Vector2(-163, 1032)
+
+[node name="Enemy16" parent="." unique_id=1545514456 instance=ExtResource("5_i54f7")]
+position = Vector2(764, 1107)
+
+[node name="Enemy18" parent="." unique_id=1737346698 instance=ExtResource("5_i54f7")]
+position = Vector2(-912, -218)
+
+[node name="Enemy13" parent="." unique_id=1907627837 instance=ExtResource("5_i54f7")]
+position = Vector2(35, 787)
+
+[node name="Enemy14" parent="." unique_id=1339973829 instance=ExtResource("5_i54f7")]
+position = Vector2(-841, 396)
+
+[node name="Enemy5" parent="." unique_id=221121200 instance=ExtResource("6_hkwdu")]
+position = Vector2(765, 47)
+
+[node name="Enemy9" parent="." unique_id=743171555 instance=ExtResource("6_hkwdu")]
+position = Vector2(605, -260)
+
+[node name="Enemy10" parent="." unique_id=1023016934 instance=ExtResource("6_hkwdu")]
+position = Vector2(545, 325)
+
+[node name="Enemy6" parent="." unique_id=1680894567 instance=ExtResource("7_qfu4t")]
+position = Vector2(242, -656)
+
+[node name="Enemy7" parent="." unique_id=1146589421 instance=ExtResource("8_k37h5")]
+position = Vector2(-1286, -160)
+
+[node name="Enemy12" parent="." unique_id=119537563 instance=ExtResource("8_k37h5")]
+position = Vector2(-821, -546)
+
+[node name="Enemy8" parent="." unique_id=1936144692 instance=ExtResource("9_jutoy")]
+position = Vector2(1697, 589)
+
+[node name="Enemy11" parent="." unique_id=977239200 instance=ExtResource("9_jutoy")]
+position = Vector2(-181, -1340)
+
+[node name="DummyFake" parent="." unique_id=2134141621 instance=ExtResource("10_yqoln")]
+position = Vector2(-568, 732)
+
+[node name="Portal" parent="." unique_id=306924495 instance=ExtResource("11_hkwdu")]
+position = Vector2(-167, -1599)

@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://d10fymu1d45ni"]
+
+[ext_resource type="Script" uid="uid://dccj2hneu4t2j" path="res://dummyfake.gd" id="1_v8d2h"]
+[ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_br31k"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_w43ly"]
+[ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemy1.tscn" id="3_wrj0e"]
+[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="4_5kvo8"]
+[ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemy3.tscn" id="5_sr8so"]
+[ext_resource type="PackedScene" uid="uid://cook0xmwlp8st" path="res://enemy4.tscn" id="6_r0ky7"]
+[ext_resource type="PackedScene" uid="uid://36fjebjt5hu2" path="res://enemy5.tscn" id="7_sx0ja"]
+[ext_resource type="PackedScene" uid="uid://py31rkcgasrd" path="res://enemy6.tscn" id="8_18n6x"]
+[ext_resource type="PackedScene" uid="uid://c3mruc03ym2gu" path="res://enemy7.tscn" id="9_c04ql"]
+[ext_resource type="PackedScene" uid="uid://64nm2frkw88u" path="res://enemy8.tscn" id="10_5kvo8"]
+[ext_resource type="PackedScene" uid="uid://dajof5ahujt1q" path="res://health_pack.tscn" id="10_jpetd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1324b"]
+radius = 79.22752
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stcs8"]
+bg_color = Color(0.18191057, 0.66177756, 0.21933779, 1)
+
+[node name="DummyFake" type="CharacterBody2D" unique_id=2070317418 groups=["enemies"]]
+script = ExtResource("1_v8d2h")
+max_health = 50.0
+damage_number_scene = ExtResource("2_br31k")
+enemy_scene_1 = ExtResource("3_wrj0e")
+enemy_scene_2 = ExtResource("4_5kvo8")
+enemy_scene_3 = ExtResource("5_sr8so")
+enemy_scene_4 = ExtResource("6_r0ky7")
+enemy_scene_5 = ExtResource("7_sx0ja")
+enemy_scene_6 = ExtResource("8_18n6x")
+enemy_scene_7 = ExtResource("9_c04ql")
+enemy_scene_8 = ExtResource("10_5kvo8")
+health_pack_scene = ExtResource("10_jpetd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1871019699]
+texture = ExtResource("3_w43ly")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=625090933]
+shape = SubResource("CircleShape2D_1324b")
+
+[node name="DamageNumberSpawn" type="Marker2D" parent="." unique_id=1261969274]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=86553791]
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1323567480]
+offset_left = -97.0
+offset_top = -114.0
+offset_right = 97.0
+offset_bottom = -87.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_stcs8")
+show_percentage = false

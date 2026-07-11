@@ -450,22 +450,39 @@ func spawn_water_ult():
 
 
 func _spawn_wave():
-	var forward = -transform.y
+
+	var enemies = get_tree().get_nodes_in_group("enemies")
+
+	if enemies.size() == 0:
+		return
+
+	enemies.sort_custom(func(a, b):
+		return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
+	)
+
+	var closest = enemies.slice(0, min(3, enemies.size()))
+	closest.shuffle()
+
 	var count = randi_range(4, 7)
 
 	for i in range(count):
+
 		var proj = water_ult_scene.instantiate()
 		get_tree().current_scene.add_child(proj)
 
-		var base_dir = forward.rotated(randf_range(-0.8, 0.8)).normalized()
+		var target = closest[i % closest.size()]
+
+		var direction = (
+			target.global_position - global_position
+		).normalized()
+
+		var spread = randf_range(-0.25, 0.25)
+		proj.direction = direction.rotated(spread)
 
 		var angle = randf_range(0, TAU)
 		var dist = randf_range(60, 140)
 
-		var offset = Vector2(cos(angle), sin(angle)) * dist
-
-		proj.global_position = global_position + offset + forward * 40
-		proj.direction = base_dir
+		proj.global_position = global_position + Vector2(cos(angle), sin(angle)) * dist
 
 
 func _on_lightning_hit(body):

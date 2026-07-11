@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cook0xmwlp8st"]
+
+[ext_resource type="Script" uid="uid://bpv7terjnj6eo" path="res://enemy_4.gd" id="1_r8dfk"]
+[ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_lbsx0"]
+[ext_resource type="PackedScene" uid="uid://dqux1ghw082bx" path="res://energy_pack.tscn" id="3_bedv3"]
+[ext_resource type="PackedScene" uid="uid://dajof5ahujt1q" path="res://health_pack.tscn" id="4_frljp"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="5_ibaw7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1324b"]
+radius = 79.22752
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stcs8"]
+bg_color = Color(0.18191057, 0.66177756, 0.21933779, 1)
+
+[node name="Enemy4" type="CharacterBody2D" unique_id=2070317418 groups=["enemies"]]
+script = ExtResource("1_r8dfk")
+damage_number_scene = ExtResource("2_lbsx0")
+energy_pack_scene = ExtResource("3_bedv3")
+health_pack_scene = ExtResource("4_frljp")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1871019699]
+texture = ExtResource("5_ibaw7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=625090933]
+shape = SubResource("CircleShape2D_1324b")
+
+[node name="DamageNumberSpawn" type="Marker2D" parent="." unique_id=1261969274]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=86553791]
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1323567480]
+offset_left = -97.0
+offset_top = -114.0
+offset_right = 97.0
+offset_bottom = -87.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_stcs8")
+show_percentage = false
+
+[node name="AimLine" type="Line2D" parent="." unique_id=1937311772]
+
+[node name="LaserLine" type="Line2D" parent="." unique_id=1581257084]

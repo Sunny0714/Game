@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://py31rkcgasrd"]
+
+[ext_resource type="Script" uid="uid://8rdsd4eoauu8" path="res://enemy_6.gd" id="1_x8e8k"]
+[ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_3ug83"]
+[ext_resource type="PackedScene" uid="uid://dqux1ghw082bx" path="res://energy_pack.tscn" id="3_74dig"]
+[ext_resource type="PackedScene" uid="uid://dajof5ahujt1q" path="res://health_pack.tscn" id="4_vtsml"]
+[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="5_3ug83"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="5_f3wgu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1324b"]
+radius = 79.22752
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_stcs8"]
+bg_color = Color(0.18191057, 0.66177756, 0.21933779, 1)
+
+[node name="Enemy6" type="CharacterBody2D" unique_id=2070317418 groups=["enemies"]]
+script = ExtResource("1_x8e8k")
+damage_number_scene = ExtResource("2_3ug83")
+energy_pack_scene = ExtResource("3_74dig")
+health_pack_scene = ExtResource("4_vtsml")
+normal_bomber_scene = ExtResource("5_3ug83")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1871019699]
+texture = ExtResource("5_f3wgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=625090933]
+shape = SubResource("CircleShape2D_1324b")
+
+[node name="DamageNumberSpawn" type="Marker2D" parent="." unique_id=1261969274]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=86553791]
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=1323567480]
+offset_left = -97.0
+offset_top = -114.0
+offset_right = 97.0
+offset_bottom = -87.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_stcs8")
+show_percentage = false

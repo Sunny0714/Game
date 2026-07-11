@@ -51,7 +51,8 @@ func _physics_process(delta):
 
 	if player == null:
 		return
-
+	var look_dir = (player.global_position - global_position).normalized()
+	sprite.rotation = look_dir.angle() - deg_to_rad(90)
 	var dist = global_position.distance_to(player.global_position)
 
 	velocity = knockback_velocity

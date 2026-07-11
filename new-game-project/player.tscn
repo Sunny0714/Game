@@ -42,6 +42,14 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="Gradient" id="Gradient_bwjto"]
+offsets = PackedFloat32Array(0.016826924, 0.53125)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_606se"]
+gradient = SubResource("Gradient_bwjto")
+fill_from = Vector2(0, 0.043402776)
+
 [node name="Player" type="CharacterBody2D" unique_id=2121266609 groups=["player"]]
 script = ExtResource("1_4flbx")
 fire_passive_radius = 550.0
@@ -114,3 +122,9 @@ z_index = 20
 
 [node name="Line2D" type="Line2D" parent="FreezeCircle" unique_id=261353261]
 z_index = 20
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2027045782]
+scale = Vector2(4, 4)
+energy = 1.5
+blend_mode = 2
+texture = SubResource("GradientTexture2D_606se")
