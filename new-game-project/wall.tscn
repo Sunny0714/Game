@@ -1,22 +1,19 @@
 [gd_scene format=3 uid="uid://c1t72k6odd4xv"]
 
-[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_xxgf6"]
 [ext_resource type="Script" uid="uid://cqecls80unrh2" path="res://wall.gd" id="1_y4f30"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4f30"]
-size = Vector2(515, 41)
+size = Vector2(513, 41)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y4f30"]
+polygon = PackedVector2Array(-259, -26, 255, -26, 255, 16, -259, 16, -259, -26)
 
 [node name="Wall" type="StaticBody2D" unique_id=1719780109]
 script = ExtResource("1_y4f30")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=134849779]
-position = Vector2(-0.5, -3.5)
 shape = SubResource("RectangleShape2D_y4f30")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1103701942]
-position = Vector2(0.9999924, -3)
-scale = Vector2(3.9999998, 0.328125)
-texture = ExtResource("1_xxgf6")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=2012123844]
-rect = Rect2(-256, -24, 512, 42)
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=980180807]
+position = Vector2(2, 5)
+occluder = SubResource("OccluderPolygon2D_y4f30")

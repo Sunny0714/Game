@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://cxey11uw6slkv"]
+
+[ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="1_nsgx7"]
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="2_lge0c"]
+[ext_resource type="Texture2D" uid="uid://blpset20ifre1" path="res://floor.jpg" id="3_dqqmb"]
+[ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemyShooter.tscn" id="4_486o7"]
+[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemyBomber.tscn" id="5_jfmbr"]
+[ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemyMelee.tscn" id="6_3wc3q"]
+[ext_resource type="PackedScene" uid="uid://dof5o4jaeea7i" path="res://portal.tscn" id="7_8u2yt"]
+[ext_resource type="Script" uid="uid://3bvj5falwds4" path="res://canvas_modulate.gd" id="8_0ajhd"]
+[ext_resource type="PackedScene" uid="uid://c1t72k6odd4xv" path="res://wall.tscn" id="9_q1rgb"]
+[ext_resource type="PackedScene" uid="uid://dvo81pxl1rgyv" path="res://death_menu.tscn" id="10_dq2pw"]
+
+[node name="Map2" type="Node2D" unique_id=1414421208]
+
+[node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("1_nsgx7")]
+
+[node name="Player" parent="." unique_id=2121266609 instance=ExtResource("2_lge0c")]
+
+[node name="Background" type="Node" parent="." unique_id=1973444737]
+
+[node name="Background" type="Sprite2D" parent="Background" unique_id=1388031366]
+z_index = -10
+position = Vector2(80, 258)
+texture = ExtResource("3_dqqmb")
+
+[node name="Background2" type="Sprite2D" parent="Background" unique_id=543078397]
+z_index = -10
+position = Vector2(-817, 253)
+texture = ExtResource("3_dqqmb")
+
+[node name="Background3" type="Sprite2D" parent="Background" unique_id=62919896]
+z_index = -11
+position = Vector2(80, -658)
+texture = ExtResource("3_dqqmb")
+
+[node name="Background4" type="Sprite2D" parent="Background" unique_id=308012178]
+z_index = -11
+position = Vector2(-817, -663)
+texture = ExtResource("3_dqqmb")
+
+[node name="Enemy1" parent="." unique_id=747708452 instance=ExtResource("4_486o7")]
+position = Vector2(-1083, -608)
+
+[node name="Enemy2" parent="." unique_id=1636125679 instance=ExtResource("4_486o7")]
+position = Vector2(-1257, 471)
+
+[node name="Enemy3" parent="." unique_id=186734388 instance=ExtResource("5_jfmbr")]
+position = Vector2(966, -221)
+
+[node name="Enemy5" parent="." unique_id=2070317418 instance=ExtResource("5_jfmbr")]
+position = Vector2(726, -612)
+
+[node name="Enemy4" parent="." unique_id=724990817 instance=ExtResource("6_3wc3q")]
+position = Vector2(745, 398)
+
+[node name="Enemy6" parent="." unique_id=3148737 instance=ExtResource("6_3wc3q")]
+position = Vector2(300, 834)
+
+[node name="Portal" parent="." unique_id=306924495 instance=ExtResource("7_8u2yt")]
+position = Vector2(-202, -757)
+next_level = "res://map_3.tscn"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=844390996]
+visible = false
+color = Color(0, 0, 0, 1)
+script = ExtResource("8_0ajhd")
+
+[node name="Walls" type="Node" parent="." unique_id=1078321559]
+
+[node name="Wall" parent="Walls" unique_id=1719780109 instance=ExtResource("9_q1rgb")]
+position = Vector2(-371, -511)
+
+[node name="Wall3" parent="Walls" unique_id=1932478050 instance=ExtResource("9_q1rgb")]
+position = Vector2(-611, -275)
+rotation = -1.5707964
+
+[node name="Wall2" parent="Walls" unique_id=698336342 instance=ExtResource("9_q1rgb")]
+position = Vector2(66, -511)
+
+[node name="DeathMenu" parent="." unique_id=1639717074 instance=ExtResource("10_dq2pw")]

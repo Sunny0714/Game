@@ -92,9 +92,7 @@ func _process(delta):
 			randf_range(-shake_strength, shake_strength)
 		)
 
-		shake_strength = lerp(shake_strength, 0.0, 0.2)
-	else:
-		cam.offset = Vector2.ZERO
+		shake_strength = lerp(shake_strength, 0.0, delta * 10)
 
 func take_damage(amount: float):
 	if dead:
@@ -120,11 +118,8 @@ func explode():
 		return
 
 	dead = true
-
 	screen_shake(16.0)
-
 	var space = get_world_2d().direct_space_state
-
 	var shape = CircleShape2D.new()
 	shape.radius = explosion_damage_radius
 

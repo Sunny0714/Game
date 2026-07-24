@@ -2,14 +2,16 @@
 
 [ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_s123t"]
 [ext_resource type="Texture2D" uid="uid://blpset20ifre1" path="res://floor.jpg" id="2_luiv8"]
-[ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemy1.tscn" id="4_bik57"]
-[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="5_6wyyh"]
-[ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemy3.tscn" id="6_ab82m"]
+[ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemyShooter.tscn" id="4_bik57"]
+[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemyBomber.tscn" id="5_6wyyh"]
+[ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemyMelee.tscn" id="6_ab82m"]
 [ext_resource type="PackedScene" uid="uid://c201kqm66rjry" path="res://pause_menu.tscn" id="7_fioup"]
 [ext_resource type="PackedScene" uid="uid://dof5o4jaeea7i" path="res://portal.tscn" id="8_8hrur"]
+[ext_resource type="Script" uid="uid://3bvj5falwds4" path="res://canvas_modulate.gd" id="8_bik57"]
 [ext_resource type="PackedScene" uid="uid://c1t72k6odd4xv" path="res://wall.tscn" id="8_luiv8"]
+[ext_resource type="PackedScene" uid="uid://dvo81pxl1rgyv" path="res://death_menu.tscn" id="10_bik57"]
 
-[node name="Map1" type="Node2D" unique_id=1414421208]
+[node name="Map2" type="Node2D" unique_id=1414421208]
 
 [node name="PauseMenu" parent="." unique_id=585320210 instance=ExtResource("7_fioup")]
 
@@ -55,9 +57,25 @@ position = Vector2(745, 398)
 [node name="Enemy6" parent="." unique_id=3148737 instance=ExtResource("6_ab82m")]
 position = Vector2(300, 834)
 
-[node name="Wall" parent="." unique_id=1719780109 instance=ExtResource("8_luiv8")]
-position = Vector2(-9, -193)
-
 [node name="Portal" parent="." unique_id=306924495 instance=ExtResource("8_8hrur")]
 position = Vector2(-202, -757)
 next_level = "res://map_3.tscn"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=844390996]
+visible = false
+color = Color(0, 0, 0, 1)
+script = ExtResource("8_bik57")
+
+[node name="Walls" type="Node" parent="." unique_id=1078321559]
+
+[node name="Wall" parent="Walls" unique_id=1719780109 instance=ExtResource("8_luiv8")]
+position = Vector2(-371, -511)
+
+[node name="Wall3" parent="Walls" unique_id=1932478050 instance=ExtResource("8_luiv8")]
+position = Vector2(-611, -275)
+rotation = -1.5707964
+
+[node name="Wall2" parent="Walls" unique_id=698336342 instance=ExtResource("8_luiv8")]
+position = Vector2(66, -511)
+
+[node name="DeathMenu" parent="." unique_id=1639717074 instance=ExtResource("10_bik57")]

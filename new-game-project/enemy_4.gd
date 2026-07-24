@@ -5,16 +5,12 @@ extends CharacterBody2D
 @export var vision_range := 900.0
 @export var min_distance := 800.0
 @export var max_distance := 900.0
-
 @export var damage := 20.0
-
 @export var aim_time := 2.0
 @export var lock_time := 0.4
 @export var cooldown := 1.2
-
 @export var strafe_speed := 120.0
 @export var knockback_decay := 1800.0
-
 @export var damage_number_scene: PackedScene
 @export var energy_pack_scene: PackedScene
 @export var health_pack_scene: PackedScene
@@ -26,7 +22,7 @@ extends CharacterBody2D
 
 var player: Node2D
 var health: float
-
+var shake_strength: float = 0.0
 var knockback_velocity := Vector2.ZERO
 var slow_multiplier := 1.0
 var is_slowed := false
@@ -205,13 +201,22 @@ func _process(delta):
 
 			aim_line.visible = false
 			laser_line.visible = false
+	if shake_strength > 0:
+		var camera = get_viewport().get_camera_2d()
 
+		if camera:
+			camera.offset = Vector2(
+				randf_range(-shake_strength, shake_strength),
+				randf_range(-shake_strength, shake_strength)
+			)
+
+		shake_strength = lerp(shake_strength, 0.0, 0.15)
 
 
 func fire_laser():
 
 	state = FIRE
-
+	screen_shake(8.0)
 	var laser_length := 1000000.0
 	var laser_end := global_position + locked_direction * laser_length
 
@@ -362,3 +367,6 @@ func drop_pack():
 			get_tree().current_scene.add_child(pack)
 
 			pack.global_position = global_position
+
+func screen_shake(amount: float = 8.0):
+	shake_strength = max(shake_strength, amount)

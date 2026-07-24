@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="1_k5u6m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j6duu"]
-size = Vector2(315, 19424)
+size = Vector2(134, 19427)
 
 [sub_resource type="Animation" id="Animation_12ijl"]
 length = 0.001
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 2.5, 4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(67, -76), Vector2(67, -9718), Vector2(72, -5442)]
+"values": [Vector2(9.536743e-07, -68), Vector2(5.722046e-06, -9714.75), Vector2(-0.5, -2034)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -58,7 +58,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 2.5, 4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(1.9921875, 1), Vector2(3.1406255, 151.66405), Vector2(0.24218751, 84.71093)]
+"values": [Vector2(0.859375, 1), Vector2(0.98437506, 151.71483), Vector2(0.2109375, 31.78125)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_djbbi"]
@@ -71,7 +71,7 @@ _data = {
 script = ExtResource("1_j6duu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1058600146]
-position = Vector2(68, -9726)
+position = Vector2(0, -9714)
 shape = SubResource("RectangleShape2D_j6duu")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=144395317]

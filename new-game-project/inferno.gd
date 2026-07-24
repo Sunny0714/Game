@@ -26,8 +26,6 @@ func _ready():
 	_start_inferno()
 
 
-# ---------------- TRACK ENEMIES ----------------
-
 func _on_body_entered(body):
 	if body.is_in_group("player"):
 		return
@@ -43,8 +41,6 @@ func _on_body_exited(body):
 	bodies_inside.erase(body)
 
 
-# ---------------- MAIN LOOP ----------------
-
 func _start_inferno():
 	var elapsed := 0.0
 
@@ -55,8 +51,6 @@ func _start_inferno():
 
 	_end_inferno()
 
-
-# ---------------- CLEAN END ----------------
 
 func _end_inferno():
 	# 🔥 UNFREEZE EVERYTHING WE FROZE
@@ -70,8 +64,6 @@ func _end_inferno():
 	inferno_ended.emit()
 	queue_free()
 
-
-# ---------------- DAMAGE ----------------
 
 func _deal_damage():
 	for body in bodies_inside:

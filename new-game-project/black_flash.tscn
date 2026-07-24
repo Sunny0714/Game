@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://7jmcp6f50ake"]
+
+[ext_resource type="Script" uid="uid://blwdt6c3jfh1m" path="res://black_flash.gd" id="1_l441d"]
+
+[node name="BlackFlash" type="Node2D" unique_id=949922939]
+script = ExtResource("1_l441d")
+
+[node name="InnerCircle" type="Line2D" parent="." unique_id=1284197689]
+
+[node name="PulseCircle" type="Line2D" parent="." unique_id=782941398]

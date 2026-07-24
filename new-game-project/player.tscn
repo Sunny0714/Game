@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://g7nbtq7tun2o" path="res://lightning_spark.tscn" id="8_nvl01"]
 [ext_resource type="PackedScene" uid="uid://d0d0ff4caub5x" path="res://water.tscn" id="10_urp6f"]
 [ext_resource type="PackedScene" uid="uid://ckhulc3iq3eem" path="res://fire_tornado.tscn" id="11_bwjto"]
+[ext_resource type="PackedScene" uid="uid://7jmcp6f50ake" path="res://black_flash.tscn" id="12_606se"]
+[ext_resource type="PackedScene" uid="uid://coc6jt8wtffbd" path="res://black_flash_punch.tscn" id="13_u1c27"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2hs0m"]
 radius = 63.788715
@@ -21,12 +23,16 @@ radius = 63.788715
 [sub_resource type="CircleShape2D" id="CircleShape2D_1jxqw"]
 radius = 106.56923
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3pqv"]
-bg_color = Color(0.8004903, 0.46884364, 0.09432835, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="Gradient" id="Gradient_bwjto"]
+offsets = PackedFloat32Array(0, 0.9879808)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_606se"]
+gradient = SubResource("Gradient_bwjto")
+width = 1024
+height = 1024
+fill = 1
+fill_from = Vector2(0.49479166, 0.5086806)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqtel"]
 bg_color = Color(0.3764706, 0.8235294, 0.03529412, 1)
@@ -35,6 +41,13 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3pqv"]
+bg_color = Color(0.8004903, 0.46884364, 0.09432835, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ivps1"]
 bg_color = Color(0.6398571, 0.02948562, 0.10816646, 1)
 corner_radius_top_left = 20
@@ -42,13 +55,8 @@ corner_radius_top_right = 20
 corner_radius_bottom_right = 20
 corner_radius_bottom_left = 20
 
-[sub_resource type="Gradient" id="Gradient_bwjto"]
-offsets = PackedFloat32Array(0.016826924, 0.53125)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_606se"]
-gradient = SubResource("Gradient_bwjto")
-fill_from = Vector2(0, 0.043402776)
+[sub_resource type="SystemFont" id="SystemFont_u1c27"]
+font_names = PackedStringArray("Noto Sans SC")
 
 [node name="Player" type="CharacterBody2D" unique_id=2121266609 groups=["player"]]
 script = ExtResource("1_4flbx")
@@ -67,6 +75,8 @@ inferno_scene = ExtResource("5_b26j0")
 lightning_conductor_scene = ExtResource("6_ivps1")
 fireball_scene = ExtResource("5_dw050")
 fire_tornado_scene = ExtResource("11_bwjto")
+black_flash_scene = ExtResource("12_606se")
+black_flash_punch_scene = ExtResource("13_u1c27")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1737002363]
 shape = SubResource("CircleShape2D_2hs0m")
@@ -84,12 +94,38 @@ zoom = Vector2(0.5, 0.5)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightningHitbox" unique_id=1069079888]
 shape = SubResource("CircleShape2D_1jxqw")
 
-[node name="EnergyBar" type="ProgressBar" parent="." unique_id=1151773862]
+[node name="FreezeCircle" type="Node2D" parent="." unique_id=998846394]
+z_index = 20
+
+[node name="Line2D" type="Line2D" parent="FreezeCircle" unique_id=261353261]
+z_index = 20
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=24971561]
+shadow_enabled = true
+shadow_item_cull_mask = 3
+texture = SubResource("GradientTexture2D_606se")
+texture_scale = 4.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=655132268]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer" unique_id=1579120706]
 top_level = true
-offset_left = -302.0
-offset_top = 551.0
-offset_right = 519.0
-offset_bottom = 575.0
+offset_left = 623.0
+offset_top = 561.0
+offset_right = 1645.0
+offset_bottom = 624.0
+scale = Vector2(0.5, 0.5)
+theme_override_styles/fill = SubResource("StyleBoxFlat_hqtel")
+show_percentage = false
+script = ExtResource("4_hqtel")
+
+[node name="EnergyBar" type="ProgressBar" parent="CanvasLayer" unique_id=1151773862]
+top_level = true
+offset_left = 623.0
+offset_top = 592.0
+offset_right = 1444.0
+offset_bottom = 616.0
+scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0.7176471, 0.37254903, 0.15294118, 0)
 theme_override_colors/font_outline_color = Color(0.5929381, 0.27965522, 0, 1)
 theme_override_styles/fill = SubResource("StyleBoxFlat_i3pqv")
@@ -97,34 +133,23 @@ value = 50.0
 show_percentage = false
 script = ExtResource("3_i3pqv")
 
-[node name="HealthBar" type="ProgressBar" parent="." unique_id=1579120706]
-top_level = true
-offset_left = -509.0
-offset_top = 434.0
-offset_right = 513.0
-offset_bottom = 497.0
-theme_override_styles/fill = SubResource("StyleBoxFlat_hqtel")
-show_percentage = false
-script = ExtResource("4_hqtel")
-
-[node name="DamageBar" type="ProgressBar" parent="." unique_id=1337714914]
+[node name="DamageBar" type="ProgressBar" parent="CanvasLayer" unique_id=1337714914]
 top_level = true
 z_index = -10
-offset_left = -509.0
-offset_top = 434.0
-offset_right = 513.0
-offset_bottom = 497.0
+offset_left = 623.0
+offset_top = 561.0
+offset_right = 1645.0
+offset_bottom = 624.0
+scale = Vector2(0.5, 0.5)
 theme_override_styles/fill = SubResource("StyleBoxFlat_ivps1")
 show_percentage = false
 
-[node name="FreezeCircle" type="Node2D" parent="." unique_id=998846394]
-z_index = 20
-
-[node name="Line2D" type="Line2D" parent="FreezeCircle" unique_id=261353261]
-z_index = 20
-
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=2027045782]
-scale = Vector2(4, 4)
-energy = 1.5
-blend_mode = 2
-texture = SubResource("GradientTexture2D_606se")
+[node name="EnemyCountLabel" type="Label" parent="CanvasLayer" unique_id=1440900894]
+offset_left = 14.0
+offset_top = 34.0
+offset_right = 238.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.5899028, 0.5899029, 0.5899027, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.21960784)
+theme_override_fonts/font = SubResource("SystemFont_u1c27")
+theme_override_font_sizes/font_size = 24

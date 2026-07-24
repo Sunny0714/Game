@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_3ug83"]
 [ext_resource type="PackedScene" uid="uid://dqux1ghw082bx" path="res://energy_pack.tscn" id="3_74dig"]
 [ext_resource type="PackedScene" uid="uid://dajof5ahujt1q" path="res://health_pack.tscn" id="4_vtsml"]
-[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="5_3ug83"]
+[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemyBomber.tscn" id="5_3ug83"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="5_f3wgu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1324b"]

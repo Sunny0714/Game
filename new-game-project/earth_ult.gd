@@ -5,12 +5,11 @@ extends Node2D
 @export var damage: float = 3.0
 @export var damage_interval: float = 0.1
 @export var duration: float = 7.0
-@export var slow_amount: float = 0.3 # 70% slow
-
+@export var slow_amount: float = 0.3
 @onready var circle: Line2D = $Circle
 
 var damage_timer: float = 0.0
-
+var shake_strength: float = 0.0
 
 func _ready():
 	_setup_circle()
@@ -26,7 +25,6 @@ func _ready():
 
 
 func _process(delta):
-	# Follow mouse
 	global_position = get_global_mouse_position()
 
 	damage_timer -= delta
@@ -34,7 +32,20 @@ func _process(delta):
 	if damage_timer <= 0:
 		damage_timer = damage_interval
 		deal_damage()
+	if shake_strength > 0:
+		var camera = get_viewport().get_camera_2d()
 
+		if camera:
+			camera.offset = Vector2(
+				randf_range(-shake_strength, shake_strength),
+				randf_range(-shake_strength, shake_strength)
+			)
+
+		shake_strength = lerp(shake_strength, 0.0, 0.15)
+
+		if shake_strength < 0.1:
+			shake_strength = 0
+			camera.offset = Vector2.ZERO
 
 func _setup_circle():
 	circle.clear_points()
@@ -65,6 +76,7 @@ func deal_damage():
 
 			if enemy.has_method("take_damage"):
 				enemy.take_damage(damage)
+				screen_shake(8.0)
 
 			if enemy.has_method("apply_slow"):
 				enemy.apply_slow(slow_amount)
@@ -72,3 +84,12 @@ func deal_damage():
 		else:
 			if enemy.has_method("remove_slow"):
 				enemy.remove_slow()
+				
+func screen_shake(amount: float = 8.0):
+	var camera = get_viewport().get_camera_2d()
+
+	if camera:
+		camera.offset = Vector2(
+			randf_range(-amount, amount),
+			randf_range(-amount, amount)
+		)

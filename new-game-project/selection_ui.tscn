@@ -1,47 +1,103 @@
 [gd_scene format=3 uid="uid://fr6luwxffxk8"]
 
 [ext_resource type="Script" uid="uid://dwqwwpv5rhfcc" path="res://selection_ui.gd" id="1_n4ux0"]
+[ext_resource type="Texture2D" uid="uid://bp5cotdgig5c1" path="res://Elemental.png" id="2_ubmad"]
+
+[sub_resource type="SystemFont" id="SystemFont_ubmad"]
+font_names = PackedStringArray("Noto Serif SC")
+font_weight = 550
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oslhk"]
+bg_color = Color(0.101960786, 0.101960786, 0.13333334, 0.7058824)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.26666668, 0.26666668, 0.26666668, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubmad"]
+bg_color = Color(0.13725491, 0.13725491, 0.1764706, 0.8627451)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="SystemFont" id="SystemFont_oslhk"]
+font_names = PackedStringArray("Noto Serif SC")
+font_weight = 550
 
 [node name="SelectionUi" type="CanvasLayer" unique_id=1831533118]
 script = ExtResource("1_n4ux0")
 
+[node name="Elemental" type="Sprite2D" parent="." unique_id=1571964195]
+z_index = -10
+position = Vector2(576.5, 326.50003)
+scale = Vector2(0.7467448, 0.6337891)
+texture = ExtResource("2_ubmad")
+
 [node name="Fire" type="Button" parent="." unique_id=2029232567]
-offset_left = 186.0
-offset_top = 171.0
-offset_right = 449.0
-offset_bottom = 266.0
+offset_left = 30.0
+offset_top = 225.0
+offset_right = 210.0
+offset_bottom = 505.0
+theme_override_fonts/font = SubResource("SystemFont_ubmad")
+theme_override_styles/normal = SubResource("StyleBoxFlat_oslhk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ubmad")
 text = "Fire"
 
 [node name="Water" type="Button" parent="." unique_id=2026034091]
-offset_left = 707.0
-offset_top = 315.0
-offset_right = 967.0
-offset_bottom = 405.0
+offset_left = 940.0
+offset_top = 237.0
+offset_right = 1120.0
+offset_bottom = 517.0
+theme_override_fonts/font = SubResource("SystemFont_oslhk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_oslhk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ubmad")
 text = "Water"
 
 [node name="Earth" type="Button" parent="." unique_id=1155443705]
-offset_left = 706.0
-offset_top = 168.0
-offset_right = 968.0
-offset_bottom = 264.0
+offset_left = 296.0
+offset_top = 229.0
+offset_right = 476.0
+offset_bottom = 509.0
+theme_override_fonts/font = SubResource("SystemFont_oslhk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_oslhk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ubmad")
 text = "Earth"
 
 [node name="Lightning" type="Button" parent="." unique_id=524206615]
-offset_left = 187.0
-offset_top = 310.0
-offset_right = 451.0
-offset_bottom = 408.0
+offset_left = 662.0
+offset_top = 232.0
+offset_right = 842.0
+offset_bottom = 512.0
+theme_override_fonts/font = SubResource("SystemFont_oslhk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_oslhk")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ubmad")
 text = "Lightning"
 
 [node name="Start" type="Button" parent="." unique_id=450523084]
-offset_left = 475.0
-offset_top = 492.0
-offset_right = 634.0
-offset_bottom = 523.0
+offset_left = 497.0
+offset_top = 526.0
+offset_right = 656.0
+offset_bottom = 557.0
 text = "Start"
 
+[connection signal="mouse_entered" from="Fire" to="." method="_on_fire_mouse_entered"]
+[connection signal="mouse_exited" from="Fire" to="." method="_on_fire_mouse_exited"]
 [connection signal="pressed" from="Fire" to="." method="_on_fire_pressed"]
+[connection signal="mouse_entered" from="Water" to="." method="_on_water_mouse_entered"]
+[connection signal="mouse_exited" from="Water" to="." method="_on_water_mouse_exited"]
 [connection signal="pressed" from="Water" to="." method="_on_water_pressed"]
+[connection signal="mouse_entered" from="Earth" to="." method="_on_earth_mouse_entered"]
+[connection signal="mouse_exited" from="Earth" to="." method="_on_earth_mouse_exited"]
 [connection signal="pressed" from="Earth" to="." method="_on_earth_pressed"]
+[connection signal="mouse_entered" from="Lightning" to="." method="_on_lightning_mouse_entered"]
+[connection signal="mouse_exited" from="Lightning" to="." method="_on_lightning_mouse_exited"]
 [connection signal="pressed" from="Lightning" to="." method="_on_lightning_pressed"]
+[connection signal="mouse_entered" from="Start" to="." method="_on_start_mouse_entered"]
+[connection signal="mouse_exited" from="Start" to="." method="_on_start_mouse_exited"]
 [connection signal="pressed" from="Start" to="." method="_on_start_pressed"]

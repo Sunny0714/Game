@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ctgfjckdpibeq"]
+
+[ext_resource type="Script" uid="uid://cryuxkq4csd6p" path="res://none.gd" id="1_c4mcd"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="2_n53cd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bboee"]
+radius = 70.256676
+
+[node name="None" type="Area2D" unique_id=1094859471]
+script = ExtResource("1_c4mcd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1250374520]
+texture = ExtResource("2_n53cd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945209995]
+shape = SubResource("CircleShape2D_bboee")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=768428015]
+z_index = 5
+offset_left = -100.0
+offset_top = 60.0
+offset_right = 100.0
+offset_bottom = 140.0
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+scroll_active = false

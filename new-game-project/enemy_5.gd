@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 @export var shockwave_damage: float = 15.0
 @export var shockwave_radius: float = 500.0
-@export var shockwave_cooldown: float = 10.0
+@export var shockwave_cooldown: float = 2.5
 
 @export var bomber_scene: PackedScene
 @export var bomber_spawn_distance_min: float = 250.0

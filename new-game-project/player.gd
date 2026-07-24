@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+@onready var enemy_label = $CanvasLayer/EnemyCountLabel
 @onready var sprite = $Sprite2D
-@onready var energy_bar = $EnergyBar
-@onready var health_bar = $HealthBar
+@onready var health_bar = $CanvasLayer/HealthBar
+@onready var damage_bar = $CanvasLayer/DamageBar
+@onready var energy_bar = $CanvasLayer/EnergyBar
 @onready var hitbox: Area2D = $LightningHitbox
 @onready var camera: Camera2D = $Camera2D
-@onready var damage_bar = $DamageBar
+@onready var death_menu = get_tree().current_scene.get_node("DeathMenu")
 
 @export var lightning_slash_speed: float = 2500.0
 @export var lightning_slash_distance: float = 300.0
@@ -41,7 +43,16 @@ extends CharacterBody2D
 @export var lightning_conductor_scene: PackedScene
 @export var fireball_scene: PackedScene
 @export var fire_tornado_scene: PackedScene
+@export var black_flash_scene: PackedScene
+@export var black_flash_punch_scene: PackedScene
 
+var black_flash = null
+var energy_cdblack := true
+var charging_black_flash := false
+var black_flash_charge := 0.0
+
+var instant_black_flash := false
+var can_black_flash := true
 var energy_cd: bool = true
 var can_use_lightning: bool = true
 var dash_ready: bool = true
@@ -71,19 +82,27 @@ var freeze_circle: Line2D
 var fire_target_circle: Line2D
 var earth_circle: Line2D
 var fire_wave_circle: Line2D
+var teleport_trail: Line2D
 
 func _ready():
+	if GameManager.selected_element == "none":
+		max_health = 200
 	energy = 50
 	health = max_health
 	speed = base_speed
+
 	_setup_freeze_circle()
 	_setup_fire_circle()
 	_setup_fire_passive_circle()
+	_setup_earth_circle()
+
 	if GameManager.selected_element == "lightning":
 		speed = 750
 
 	if GameManager.selected_element == "earth":
 		earth_regen()
+		
+	GameManager.player = self
 
 	energy_bar.max_value = max_energy
 	energy_bar.value = energy
@@ -94,13 +113,12 @@ func _ready():
 	health_bar.value = health
 	damage_bar.value = health
 
-	GameManager.player = self
-
-	if hitbox and not hitbox.body_entered.is_connected(_on_lightning_hit):
+	if hitbox and !hitbox.body_entered.is_connected(_on_lightning_hit):
 		hitbox.body_entered.connect(_on_lightning_hit)
-	_setup_earth_circle()
 
 func _physics_process(delta):
+	var enemy_count = get_tree().get_nodes_in_group("enemies").size()
+	enemy_label.text = "Enemies Left: " + str(enemy_count)
 	if lightning_slashing:
 		return
 	if inferno_locked:
@@ -136,11 +154,35 @@ func _physics_process(delta):
 	_update_fire_circle()
 
 func _process(delta):
+	if GameManager.selected_element == "none":
+		if Input.is_action_pressed("attack") and can_black_flash and !charging_black_flash:
+			start_black_flash()
+
+		if charging_black_flash:
+			if instant_black_flash:
+				black_flash_charge = 10.0
+
+			else:
+
+				black_flash_charge = min(
+					black_flash_charge + delta,
+					10.0
+				)
+
+			if is_instance_valid(black_flash):
+
+				black_flash.set_charge(black_flash_charge)
+
+		if Input.is_action_just_released("attack") and charging_black_flash:
+			release_black_flash()
+			charging_black_flash = false
+			black_flash_charge = 0.0
+			can_black_flash = true
 	if GameManager.selected_element == "fire":
 		fire_passive_circle.visible = true
 	else:
 		fire_passive_circle.visible = false
-
+		
 	if Input.is_action_just_pressed("passive"):
 		if GameManager.selected_element == "fire" and can_use_fire_passive:
 			fire_passive()
@@ -159,15 +201,10 @@ func _process(delta):
 
 		if shake_strength < 0.1:
 			shake_strength = 0
-			$Camera2D.offset = Vector2.ZERO
 
 		
 	energy = clamp(energy, 0, max_energy)
 	health = clamp(health, 0, max_health)
-
-	damage_bar.global_position = global_position + Vector2(-40, 500)
-	energy_bar.global_position = global_position + Vector2(160, 565)
-	health_bar.global_position = global_position + Vector2(-40, 500)
 
 	energy_bar.value = energy
 	health_bar.set_health(health)
@@ -197,10 +234,18 @@ func basic_attack():
 		"lightning":
 			lightning_attack()
 
-
 func energy_ability():
 	var cost = 25
 	if energy < cost:
+		return
+	if GameManager.selected_element == "none":
+		if !energy_cdblack:
+			return
+		energy_cdblack = false
+		energy -= cost
+		teleport()
+		await get_tree().create_timer(0.1).timeout
+		energy_cdblack = true
 		return
 	if !energy_cd:
 		return
@@ -248,7 +293,7 @@ func ultimate():
 			if hitbox:
 				hitbox.monitoring = true
 
-			await get_tree().create_timer(20).timeout
+			await get_tree().create_timer(5).timeout
 
 			lightning_ult_active = false
 			$CollisionShape2D.scale = Vector2(1, 1)
@@ -259,7 +304,7 @@ func ultimate():
 			if hitbox:
 				hitbox.monitoring = false
 
-	if GameManager.selected_element in ["water", "earth", "fire"]:
+	if GameManager.selected_element in ["water", "earth", "fire", "none"]:
 		speed = 650
 		await get_tree().create_timer(10).timeout
 		speed = base_speed
@@ -443,6 +488,7 @@ func spawn_water_ult():
 		return
 
 	for wave in range(3):
+		screen_shake(18.0)
 		await _spawn_wave()
 
 		if wave < 2:
@@ -547,10 +593,8 @@ func take_damage(amount: float):
 	flash_red()
 
 	if health <= 0:
-		get_tree().reload_current_scene()
-
-
-
+		health = 0
+		death_menu.show_death_menu()
 
 func flash_red():
 	sprite.modulate = Color(1, 0.3, 0.3)
@@ -587,9 +631,9 @@ func start_inferno():
 	var inferno = inferno_scene.instantiate()
 	get_tree().current_scene.add_child(inferno)
 
-	inferno.global_position = global_position + Vector2(0, -80)
-
 	var dir = (get_global_mouse_position() - global_position).normalized()
+
+	inferno.global_position = global_position + dir * 80
 	inferno.rotation = dir.angle() + deg_to_rad(90)
 
 	inferno_locked = true
@@ -597,6 +641,7 @@ func start_inferno():
 	can_fire = false
 
 	await get_tree().create_timer(4.0).timeout
+
 	inferno_locked = false
 	speed = base_speed
 	can_fire = true
@@ -956,3 +1001,147 @@ func spawn_fire_tornado():
 
 	tornado.direction = dir
 	tornado.rotation = dir.angle()
+	
+func start_black_flash():
+	charging_black_flash = true
+	speed = 50
+	black_flash_charge = 0.0
+
+	black_flash = black_flash_scene.instantiate()
+
+	get_tree().current_scene.add_child(
+		black_flash
+	)
+
+	black_flash.show_effect()
+
+func release_black_flash():
+	speed = 650
+	charging_black_flash = false
+
+	if is_instance_valid(black_flash):
+
+		black_flash.hide_effect()
+
+		black_flash.queue_free()
+
+	spawn_black_flash_punch()
+
+	if black_flash_charge >= 10.0:
+
+		screen_shake(20)
+
+		instant_black_flash = true
+
+		await get_tree().create_timer(1.0).timeout
+
+		instant_black_flash = false
+
+	black_flash_charge = 0.0
+
+func spawn_black_flash_punch():
+
+	if black_flash_punch_scene == null:
+		return
+
+
+	var punch = black_flash_punch_scene.instantiate()
+
+
+	var dir = (
+		get_global_mouse_position() -
+		global_position
+	).normalized()
+
+
+	punch.global_position = global_position + dir * 80
+
+	punch.rotation = dir.angle()
+
+
+	punch.charge = black_flash_charge
+
+	punch.freeze = black_flash_charge >= 10.0
+
+
+	get_tree().current_scene.add_child(
+		punch
+	)
+
+func teleport():
+
+	var enemies = get_tree().get_nodes_in_group("enemies")
+
+	if enemies.is_empty():
+		return
+
+
+	var nearest_enemy = null
+	var nearest_distance = INF
+
+
+	for enemy in enemies:
+
+		var dist = global_position.distance_to(enemy.global_position)
+
+		if dist < nearest_distance:
+
+			nearest_distance = dist
+			nearest_enemy = enemy
+
+
+	if nearest_enemy == null:
+		return
+
+
+	var old_position = global_position
+	var new_position = nearest_enemy.global_position
+
+
+	global_position = new_position
+
+
+	var black_trail = Line2D.new()
+	black_trail.width = 12
+	black_trail.default_color = Color(0, 0, 0)
+
+	var red_trail = Line2D.new()
+	red_trail.width = 5
+	red_trail.default_color = Color(0.8, 0, 0)
+
+
+	var points := 15
+
+	for i in range(points + 1):
+
+		var t = float(i) / points
+
+		var pos = old_position.lerp(
+			new_position,
+			t
+		)
+
+		if i != 0 and i != points:
+
+			pos += Vector2(
+				randf_range(-35, 35),
+				randf_range(-35, 35)
+			)
+
+
+		black_trail.add_point(pos)
+		red_trail.add_point(pos)
+
+
+	get_tree().current_scene.add_child(black_trail)
+	get_tree().current_scene.add_child(red_trail)
+
+
+	await get_tree().create_timer(0.3).timeout
+
+
+	if is_instance_valid(black_trail):
+		black_trail.queue_free()
+
+	if is_instance_valid(red_trail):
+		red_trail.queue_free()

@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bp128r1ma31bp" path="res://enemy_7.gd" id="1_qc0wp"]
 [ext_resource type="PackedScene" uid="uid://3vgn64wendys" path="res://damage_number.tscn" id="2_nys46"]
-[ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemy1.tscn" id="3_5vshx"]
+[ext_resource type="PackedScene" uid="uid://btrytdgqsui5b" path="res://enemyShooter.tscn" id="3_5vshx"]
 [ext_resource type="PackedScene" uid="uid://dajof5ahujt1q" path="res://health_pack.tscn" id="3_xdvbe"]
 [ext_resource type="PackedScene" uid="uid://dqux1ghw082bx" path="res://energy_pack.tscn" id="4_5vshx"]
-[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemy2.tscn" id="4_rqf74"]
-[ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemy3.tscn" id="5_ka7dn"]
+[ext_resource type="PackedScene" uid="uid://bpfamqmjb7h2i" path="res://enemyBomber.tscn" id="4_rqf74"]
+[ext_resource type="PackedScene" uid="uid://csoo5hdxrfp0b" path="res://enemyMelee.tscn" id="5_ka7dn"]
 [ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="6_ka7dn"]
 [ext_resource type="PackedScene" uid="uid://cook0xmwlp8st" path="res://enemy4.tscn" id="6_u0bnt"]
-[ext_resource type="PackedScene" uid="uid://36fjebjt5hu2" path="res://enemy5.tscn" id="7_rj7pj"]
+[ext_resource type="PackedScene" uid="uid://36fjebjt5hu2" path="res://enemyShockwave.tscn" id="7_rj7pj"]
 [ext_resource type="PackedScene" uid="uid://py31rkcgasrd" path="res://enemy6.tscn" id="8_6jbui"]
 [ext_resource type="PackedScene" uid="uid://64nm2frkw88u" path="res://enemy8.tscn" id="11_u0bnt"]
 
